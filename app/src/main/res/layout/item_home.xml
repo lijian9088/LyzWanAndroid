@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/container"
+    android:orientation="vertical"
+    android:paddingLeft="16dp"
+    android:paddingTop="8dp"
+    android:background="?attr/selectableItemBackground"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp">
+
+    <TextView
+        android:id="@+id/tvChapter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chapter"
+        android:textColor="@android:color/darker_gray" />
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        android:lineSpacingExtra="4dp"
+        android:textSize="15sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="author"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="・"
+            android:textColor="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            android:textColor="@android:color/darker_gray" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navHome"
+        android:icon="@drawable/ic_home"
+        android:title="@string/nav_home" />
+
+    <item
+        android:id="@+id/navProjects"
+        android:icon="@drawable/ic_project"
+        android:title="@string/nav_projects" />
+
+    <item
+        android:id="@+id/navTree"
+        android:icon="@drawable/ic_cluster"
+        android:title="@string/nav_tree" />
+
+    <item
+        android:id="@+id/navWxArticle"
+        android:icon="@drawable/ic_trophy"
+        android:title="@string/nav_wxArticle" />
+
+    <item
+        android:id="@+id/navUser"
+        android:icon="@drawable/ic_user"
+        android:title="@string/nav_user" />
+
+</menu>
