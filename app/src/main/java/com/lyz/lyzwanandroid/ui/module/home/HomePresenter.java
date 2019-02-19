@@ -106,7 +106,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
                     @Override
                     public void onNext(BaseResponse<?> baseResponse) {
-                        Logger.d("onNext:" + baseResponse);
+                        Logger.d("onNext");
                         if (baseResponse.errorCode == 0) {
                             if (baseResponse.data instanceof List) {
                                 view.setBannerData((List<Banner>) baseResponse.data);

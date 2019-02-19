@@ -3,6 +3,8 @@ package com.lyz.lyzwanandroid.data.source;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
+import com.lyz.lyzwanandroid.data.model.ProjectList;
+import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.data.source.remote.WanAndroidService;
 
 import java.util.List;
@@ -55,6 +57,7 @@ public class NetworkManager {
 
     /**
      * 获取banner数据
+     *
      * @return
      */
     public Observable<BaseResponse<List<Banner>>> getBanner() {
@@ -65,11 +68,35 @@ public class NetworkManager {
 
     /**
      * 获取page页的文章列表
+     *
      * @param page
      * @return
      */
     public Observable<BaseResponse<ArticleList>> getArticle(int page) {
-        return service.requestArticle(page)
+        return service.requestArticleList(page)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取project的标题
+     *
+     * @return
+     */
+    public Observable<BaseResponse<List<ProjectTitle>>> getProjectTitle() {
+        return service.requestProjectTitle()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取page页的project列表
+     *
+     * @param page
+     * @return
+     */
+    public Observable<BaseResponse<ProjectList>> getProjectList(int page, int cid) {
+        return service.requestProjectList(page, cid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }

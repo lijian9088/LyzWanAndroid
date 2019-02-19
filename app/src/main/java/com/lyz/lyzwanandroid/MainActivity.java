@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.lyz.lyzwanandroid.ui.base.BaseAppCompatActivity;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.module.home.HomeFragment;
-import com.lyz.lyzwanandroid.ui.module.projects.ProjectsFragment;
+import com.lyz.lyzwanandroid.ui.module.project.ProjectFragment;
 import com.lyz.lyzwanandroid.widget.LyzBottomNavigationView;
 
 import java.util.ArrayList;
@@ -46,9 +46,9 @@ public class MainActivity extends BaseAppCompatActivity {
         fragmentList.add(homeFragment);
         transaction.add(R.id.container, homeFragment);
 
-        ProjectsFragment projectsFragment = new ProjectsFragment();
-        fragmentList.add(projectsFragment);
-        transaction.add(R.id.container, projectsFragment);
+        ProjectFragment projectFragment = new ProjectFragment();
+        fragmentList.add(projectFragment);
+        transaction.add(R.id.container, projectFragment);
 
         transaction.commit();
     }

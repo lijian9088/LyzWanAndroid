@@ -3,12 +3,15 @@ package com.lyz.lyzwanandroid.data.source.remote;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
+import com.lyz.lyzwanandroid.data.model.ProjectList;
+import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 
 import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author liyanze
@@ -17,9 +20,15 @@ import retrofit2.http.Path;
  */
 public interface WanAndroidService {
 
-    @GET("/banner/json")
+    @GET("banner/json")
     Observable<BaseResponse<List<Banner>>> requestBanner();
 
     @GET("article/list/{page}/json")
-    Observable<BaseResponse<ArticleList>> requestArticle(@Path("page") int page);
+    Observable<BaseResponse<ArticleList>> requestArticleList(@Path("page") int page);
+
+    @GET("project/tree/json")
+    Observable<BaseResponse<List<ProjectTitle>>> requestProjectTitle();
+
+    @GET("project/list/{page}/json")
+    Observable<BaseResponse<ProjectList>> requestProjectList(@Path("page") int page, @Query("cid") int cid);
 }

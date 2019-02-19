@@ -11,7 +11,26 @@ import butterknife.ButterKnife;
  * @create 2019/02/11
  * @Describe
  */
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    private OnItemClickListener itemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.itemClickListener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (itemClickListener != null) {
+            int position = getLayoutPosition();
+            itemClickListener.onItemClick(position);
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     public BaseViewHolder(@NonNull View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
@@ -22,4 +41,6 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
 
     protected void bind(int position) {
     }
+
+
 }

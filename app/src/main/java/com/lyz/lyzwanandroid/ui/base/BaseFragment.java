@@ -37,6 +37,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment imp
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        //一行代码解决fragment重叠问题
         outState.putParcelable("android:support:fragments", null);
     }
 
