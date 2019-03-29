@@ -1,8 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.project;
 
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
-import com.lyz.lyzwanandroid.data.model.Project;
-import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.data.source.NetworkManager;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;

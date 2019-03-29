@@ -1,6 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.home;
 
-import com.lyz.lyzwanandroid.data.model.Article;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.ui.base.mvp.IPresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
@@ -20,9 +20,9 @@ public interface HomeContract {
 
         void setBannerData(List<Banner> data);
 
-        void setItemData(List<Article> data);
+        void setItemData(List<WanAndroidData> data);
 
-        void appendItemData(List<Article> data);
+        void appendItemData(List<WanAndroidData> data);
 
         void clearData();
 

@@ -8,11 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.data.model.Article;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.ui.adpter.HomeAdapter;
 import com.lyz.lyzwanandroid.ui.base.BaseFragment;
 import com.lyz.lyzwanandroid.ui.listener.LyzRvListener;
+import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 
 import java.util.List;
 
@@ -64,8 +65,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         });
         adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position, Article article) {
-                showToast("position:%d,articleTitle:%s", position, article.title);
+            public void onItemClick(int position, WanAndroidData data) {
+                String link = data.link;
+                WebActivity.goActivity(getActivity(), link);
             }
         });
 
@@ -101,7 +103,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void setItemData(List<Article> data) {
+    public void setItemData(List<WanAndroidData> data) {
         if (data != null && data.size() > 0) {
             adapter.setData(data);
         } else {
@@ -110,7 +112,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     }
 
     @Override
-    public void appendItemData(List<Article> data) {
+    public void appendItemData(List<WanAndroidData> data) {
         if (data == null || data.size() == 0) {
             setFooterState(HomeAdapter.STATE_FOOTER_NOMORE);
         } else {

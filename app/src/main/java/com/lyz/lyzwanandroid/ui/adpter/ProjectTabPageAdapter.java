@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.data.model.Project;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewWithHeaderAndFooterAdapter;
 import com.lyz.lyzwanandroid.ui.base.BaseViewHolder;
 
@@ -17,7 +17,7 @@ import butterknife.BindView;
  * @create 2019/02/18
  * @Describe
  */
-public class ProjectTabPageAdapter extends BaseRecyclerViewWithHeaderAndFooterAdapter<Project> {
+public class ProjectTabPageAdapter extends BaseRecyclerViewWithHeaderAndFooterAdapter<WanAndroidData> {
 
     @Override
     protected boolean hasHeader() {
@@ -56,12 +56,12 @@ public class ProjectTabPageAdapter extends BaseRecyclerViewWithHeaderAndFooterAd
 
         @Override
         protected void bind(int position) {
-            Project project = data.get(position);
+            WanAndroidData wanAndroidData = data.get(position);
             tvChapter.setVisibility(View.GONE);
 
-            tvTitle.setText(project.title);
-            tvAuthor.setText(project.author);
-            tvDate.setText(project.niceDate);
+            tvTitle.setText(wanAndroidData.title);
+            tvAuthor.setText(wanAndroidData.author);
+            tvDate.setText(wanAndroidData.niceDate);
             itemView.setOnClickListener(this);
         }
 

@@ -1,6 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.project.tabpage;
 
-import com.lyz.lyzwanandroid.data.model.Project;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.mvp.IPresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
@@ -17,9 +17,9 @@ public interface ProjectTabPageContract {
 
         void hideLoading();
 
-        void setItemData(List<Project> data);
+        void setItemData(List<WanAndroidData> data);
 
-        void appendItemData(List<Project> data);
+        void appendItemData(List<WanAndroidData> data);
 
         void clearData();
 

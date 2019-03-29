@@ -12,7 +12,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseAppCompatActivity<T extends BasePresenter> extends AppCompatActivity implements IView {
 
-    private T presenter;
+    protected T presenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,7 +20,13 @@ public abstract class BaseAppCompatActivity<T extends BasePresenter> extends App
         setContentView(getLayoutRes());
         ButterKnife.bind(this);
         initPresenter();
+        initView();
+        initData();
     }
+
+    protected abstract void initView();
+
+    protected abstract void initData();
 
     @Override
     protected void onDestroy() {

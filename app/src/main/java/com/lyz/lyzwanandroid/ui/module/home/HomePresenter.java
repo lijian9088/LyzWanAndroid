@@ -1,6 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.home;
 
-import com.lyz.lyzwanandroid.data.model.Article;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
@@ -34,7 +34,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                 .subscribe(new Observer<BaseResponse<List<Banner>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposable.add(d);
                     }
 
                     @Override
@@ -70,7 +70,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onNext(BaseResponse<ArticleList> articleListBaseResponse) {
                         if (articleListBaseResponse.errorCode == 0) {
-                            List<Article> datas = articleListBaseResponse.data.datas;
+                            List<WanAndroidData> datas = articleListBaseResponse.data.datas;
 
                             if (page == 0) {
                                 view.setItemData(datas);
@@ -111,7 +111,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                             if (baseResponse.data instanceof List) {
                                 view.setBannerData((List<Banner>) baseResponse.data);
                             } else if (baseResponse.data instanceof ArticleList) {
-                                List<Article> datas = ((ArticleList) baseResponse.data).datas;
+                                List<WanAndroidData> datas = ((ArticleList) baseResponse.data).datas;
                                 view.setItemData(datas);
                             }
 

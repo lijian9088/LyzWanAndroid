@@ -15,10 +15,11 @@ import com.blankj.utilcode.util.ToastUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.data.model.Article;
 import com.lyz.lyzwanandroid.data.model.Banner;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.BaseViewHolder;
+import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 import com.stx.xhb.xbanner.XBanner;
 
 import java.util.List;
@@ -30,7 +31,7 @@ import butterknife.BindView;
  * @create 2019/02/11
  * @Describe
  */
-public class HomeAdapter extends BaseRecyclerViewAdapter<Article, RecyclerView.ViewHolder> {
+public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, RecyclerView.ViewHolder> {
 
     public static final int STATE_FOOTER_LOADING = 0;
     public static final int STATE_FOOTER_HIDELOADING = 1;
@@ -120,7 +121,7 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<Article, RecyclerView.V
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position, Article article);
+        void onItemClick(int position, WanAndroidData wanAndroidData);
     }
 
     public class HeaderViewHolder extends BaseViewHolder {
@@ -153,7 +154,9 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<Article, RecyclerView.V
             xBanner.setOnItemClickListener(new XBanner.OnItemClickListener() {
                 @Override
                 public void onItemClick(XBanner banner, Object model, View view, int position) {
-                    ToastUtils.showShort("点击了%d位置的图片", position);
+                    Banner bannerModel = (Banner) model;
+                    String url = bannerModel.url;
+                    WebActivity.goActivity(context, url);
                 }
             });
         }
@@ -184,8 +187,8 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<Article, RecyclerView.V
         public void onClick(View v) {
             if (itemClickListener != null) {
                 int position = getLayoutPosition() - 1;
-                Article article = data.get(position);
-                itemClickListener.onItemClick(position, article);
+                WanAndroidData wanAndroidData = data.get(position);
+                itemClickListener.onItemClick(position, wanAndroidData);
             }
         }
 
@@ -193,11 +196,11 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<Article, RecyclerView.V
         protected void bind(int position) {
             container.setOnClickListener(this);
 
-            Article article = data.get(position - 1);
-            tvChapter.setText(article.chapterName);
-            tvTitle.setText(article.title);
-            tvAuthor.setText(article.author);
-            tvDate.setText(article.niceDate);
+            WanAndroidData wanAndroidData = data.get(position - 1);
+            tvChapter.setText(wanAndroidData.chapterName);
+            tvTitle.setText(wanAndroidData.title);
+            tvAuthor.setText(wanAndroidData.author);
+            tvDate.setText(wanAndroidData.niceDate);
         }
 
 

@@ -8,11 +8,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.data.model.Project;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageAdapter;
 import com.lyz.lyzwanandroid.ui.base.BaseFragment;
 import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewWithHeaderAndFooterAdapter;
 import com.lyz.lyzwanandroid.ui.listener.LyzRvListener;
+import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 
 import java.util.List;
 
@@ -77,10 +78,11 @@ public class ProjectTabPageFragment extends BaseFragment<ProjectTabPagePresenter
                 presenter.getProject(page++, currentCid);
             }
         });
-        adapter.setOnItemClickListener(new BaseRecyclerViewWithHeaderAndFooterAdapter.OnItemClickListener<Project>() {
+        adapter.setOnItemClickListener(new BaseRecyclerViewWithHeaderAndFooterAdapter.OnItemClickListener<WanAndroidData>() {
             @Override
-            public void onItemClick(int position, Project data) {
-                showToast("position:%d,title:%s", position, data.title);
+            public void onItemClick(int position, WanAndroidData data) {
+                String link = data.link;
+                WebActivity.goActivity(getActivity(), link);
             }
         });
     }
@@ -105,13 +107,13 @@ public class ProjectTabPageFragment extends BaseFragment<ProjectTabPagePresenter
     }
 
     @Override
-    public void setItemData(List<Project> data) {
+    public void setItemData(List<WanAndroidData> data) {
         adapter.setData(data);
         hideLoading();
     }
 
     @Override
-    public void appendItemData(List<Project> data) {
+    public void appendItemData(List<WanAndroidData> data) {
         adapter.appendItems(data);
         hideLoading();
     }

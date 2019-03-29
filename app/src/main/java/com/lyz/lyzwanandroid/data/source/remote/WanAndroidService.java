@@ -3,6 +3,7 @@ package com.lyz.lyzwanandroid.data.source.remote;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
+import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 
@@ -31,4 +32,8 @@ public interface WanAndroidService {
 
     @GET("project/list/{page}/json")
     Observable<BaseResponse<ProjectList>> requestProjectList(@Path("page") int page, @Query("cid") int cid);
+
+    @GET("navi/json")
+    Observable<BaseResponse<List<Navigation>>> requestNavigation();
+
 }

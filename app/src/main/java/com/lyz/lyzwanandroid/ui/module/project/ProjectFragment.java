@@ -3,7 +3,6 @@ package com.lyz.lyzwanandroid.ui.module.project;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lyz.lyzwanandroid.R;
@@ -24,6 +23,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
     @BindView(R.id.viewPager)
     ViewPager viewPager;
+    private ProjectTabPageFragmentAdapter fragmentAdapter;
 
     @Override
     protected int getLayout() {
@@ -65,7 +65,8 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
     }
 
     private void setupTabPage(List<ProjectTabPageFragment> fragmentList, List<ProjectTitle> titleList) {
-        viewPager.setAdapter(new ProjectTabPageFragmentAdapter(getFragmentManager(), fragmentList, titleList));
+        fragmentAdapter = new ProjectTabPageFragmentAdapter(getFragmentManager(), fragmentList, titleList);
+        viewPager.setAdapter(fragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }
 

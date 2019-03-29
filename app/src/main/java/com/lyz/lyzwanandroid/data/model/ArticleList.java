@@ -15,6 +15,6 @@ public class ArticleList {
     public int pageCount;
     public int size;
     public int total;
-    public List<Article> datas;
+    public List<WanAndroidData> datas;
 
 }

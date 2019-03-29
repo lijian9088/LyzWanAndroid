@@ -4,7 +4,7 @@
     <string name="nav_home">Home</string>
     <string name="nav_projects">Projects</string>
     <string name="nav_tree">Tree</string>
-    <string name="nav_wxArticle">WxArticle</string>
+    <string name="nav_navigation">Navigation</string>
     <string name="nav_user">User</string>
 
     <string name="no_more_data">没有更多了</string>

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
+import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
 
 import butterknife.BindView;
 
@@ -17,7 +18,7 @@ import butterknife.BindView;
  * @create 2019/02/18
  * @Describe
  */
-public abstract class BaseRecyclerViewWithHeaderAndFooterAdapter<D> extends BaseRecyclerViewAdapter<D, BaseViewHolder> implements BaseViewHolder.OnItemClickListener {
+public abstract class BaseRecyclerViewWithHeaderAndFooterAdapter<D> extends BaseRecyclerViewAdapter<D, BaseViewHolder> implements OnItemClickListener {
 
     public static final int STATE_FOOTER_LOADING = 0;
     public static final int STATE_FOOTER_HIDELOADING = 1;
@@ -137,7 +138,7 @@ public abstract class BaseRecyclerViewWithHeaderAndFooterAdapter<D> extends Base
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View view, int position) {
         if (itemClickListener != null) {
             itemClickListener.onItemClick(position, data.get(position));
         }

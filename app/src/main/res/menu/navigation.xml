@@ -16,9 +16,9 @@
         android:title="@string/nav_tree" />
 
     <item
-        android:id="@+id/navWxArticle"
+        android:id="@+id/navNavigation"
         android:icon="@drawable/ic_trophy"
-        android:title="@string/nav_wxArticle" />
+        android:title="@string/nav_navigation" />
 
     <item
         android:id="@+id/navUser"

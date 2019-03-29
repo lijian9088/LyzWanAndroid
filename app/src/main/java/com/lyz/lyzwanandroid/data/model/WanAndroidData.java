@@ -7,7 +7,7 @@ import java.util.List;
  * @create 2019/02/11
  * @Describe
  */
-public class Article {
+public class WanAndroidData {
 
     /**
      * apkLink :

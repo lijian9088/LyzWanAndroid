@@ -1,10 +1,10 @@
-package com.lyz.lyzwanandroid.ui.module.project.tabpage;
+package com.lyz.lyzwanandroid.ui.module.navigation;
 
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
-import com.lyz.lyzwanandroid.data.model.ProjectList;
-import com.lyz.lyzwanandroid.data.model.WanAndroidData;
+import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.source.NetworkManager;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -14,10 +14,10 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * @author liyanze
- * @create 2019/02/19
+ * @create 2019/03/19
  * @Describe
  */
-public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContract.View> implements ProjectTabPageContract.Presenter {
+public class NavigationPresenter extends BasePresenter<NavigationContract.View> implements NavigationContract.Presenter {
 
     /**
      * CompositeDisposable在切断后就不能再重用，所以每次都要new一个新的
@@ -25,31 +25,28 @@ public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContrac
     private CompositeDisposable disposable = new CompositeDisposable();
 
     @Override
-    public void getProject(int page, int cid) {
+    public void getNavigationData() {
         NetworkManager.getInstance()
-                .getProjectList(page, cid)
-                .subscribe(new Observer<BaseResponse<ProjectList>>() {
+                .getNavigation()
+                .subscribe(new Observer<BaseResponse<List<Navigation>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onNext(BaseResponse<ProjectList> projectListBaseResponse) {
-                        if (projectListBaseResponse.errorCode == 0) {
-                            ProjectList projectList = projectListBaseResponse.data;
-                            List<WanAndroidData> datas = projectList.datas;
-                            if (page > 1) {
-                                view.appendItemData(datas);
-                            } else {
-                                view.setItemData(datas);
-                            }
+                    public void onNext(BaseResponse<List<Navigation>> navigationBaseResponse) {
+                        Logger.d("navigationBaseResponse:" + navigationBaseResponse);
+                        if (navigationBaseResponse.errorCode == 0) {
+                            List<Navigation> data = navigationBaseResponse.data;
+                            view.setNavigationData(data);
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Logger.e("nav,onError:" + e.getMessage());
+                        e.printStackTrace();
                     }
 
                     @Override
@@ -67,4 +64,3 @@ public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContrac
         }
     }
 }
-

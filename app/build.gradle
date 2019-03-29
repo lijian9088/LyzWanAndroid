@@ -50,4 +50,6 @@ dependencies {
     //日志拦截器
     implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
+    //flex布局
+    implementation 'com.google.android:flexbox:1.0.0'
 }
