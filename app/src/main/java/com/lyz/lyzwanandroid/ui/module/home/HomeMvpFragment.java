@@ -11,7 +11,7 @@ import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.ui.adpter.HomeAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseFragment;
+import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.listener.LyzRvListener;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class HomeFragment extends BaseFragment<HomePresenter> implements HomeContract.View {
+public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements HomeContract.View {
 
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;

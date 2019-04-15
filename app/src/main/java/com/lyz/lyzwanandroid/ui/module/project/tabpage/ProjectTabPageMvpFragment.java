@@ -10,7 +10,7 @@ import android.view.View;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseFragment;
+import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewWithHeaderAndFooterAdapter;
 import com.lyz.lyzwanandroid.ui.listener.LyzRvListener;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
@@ -24,7 +24,7 @@ import butterknife.BindView;
  * @create 2019/02/19
  * @Describe
  */
-public class ProjectTabPageFragment extends BaseFragment<ProjectTabPagePresenter> implements ProjectTabPageContract.View {
+public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePresenter> implements ProjectTabPageContract.View {
 
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
@@ -37,10 +37,10 @@ public class ProjectTabPageFragment extends BaseFragment<ProjectTabPagePresenter
 
     private int currentCid;
 
-    public static ProjectTabPageFragment newInstance(int cid) {
+    public static ProjectTabPageMvpFragment newInstance(int cid) {
         Bundle args = new Bundle();
         args.putInt("cid", cid);
-        ProjectTabPageFragment fragment = new ProjectTabPageFragment();
+        ProjectTabPageMvpFragment fragment = new ProjectTabPageMvpFragment();
         fragment.setArguments(args);
         return fragment;
     }

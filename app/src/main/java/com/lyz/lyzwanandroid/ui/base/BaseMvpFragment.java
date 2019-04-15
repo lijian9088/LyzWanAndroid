@@ -15,7 +15,7 @@ import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements IView {
+public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment implements IView {
 
     protected T presenter;
 

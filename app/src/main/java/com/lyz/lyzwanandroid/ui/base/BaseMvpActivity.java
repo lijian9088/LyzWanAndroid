@@ -10,7 +10,7 @@ import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseAppCompatActivity<T extends BasePresenter> extends AppCompatActivity implements IView {
+public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseSwipeBackActivity implements IView {
 
     protected T presenter;
 

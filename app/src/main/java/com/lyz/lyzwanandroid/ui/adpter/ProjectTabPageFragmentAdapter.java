@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
-import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageFragment;
+import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageMvpFragment;
 
 import java.util.List;
 
@@ -17,10 +17,10 @@ import java.util.List;
  */
 public class ProjectTabPageFragmentAdapter extends FragmentPagerAdapter {
 
-    private final List<ProjectTabPageFragment> fragmentlist;
+    private final List<ProjectTabPageMvpFragment> fragmentlist;
     private final List<ProjectTitle> titleList;
 
-    public ProjectTabPageFragmentAdapter(FragmentManager fm, List<ProjectTabPageFragment> fragmentlist, List<ProjectTitle> titleList) {
+    public ProjectTabPageFragmentAdapter(FragmentManager fm, List<ProjectTabPageMvpFragment> fragmentlist, List<ProjectTitle> titleList) {
         super(fm);
         this.fragmentlist = fragmentlist;
         this.titleList = titleList;

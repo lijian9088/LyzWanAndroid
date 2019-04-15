@@ -8,15 +8,15 @@ import android.view.View;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageFragmentAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseFragment;
-import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageFragment;
+import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageMvpFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class ProjectFragment extends BaseFragment<ProjectPresenter> implements ProjectContract.View {
+public class ProjectMvpFragment extends BaseMvpFragment<ProjectPresenter> implements ProjectContract.View {
 
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
@@ -50,12 +50,12 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
     @Override
     public void setTitleData(List<ProjectTitle> data) {
 
-        List<ProjectTabPageFragment> fragmentList = new ArrayList<>();
+        List<ProjectTabPageMvpFragment> fragmentList = new ArrayList<>();
 
         if (data != null && data.size() > 0) {
             for (ProjectTitle title : data) {
                 tabLayout.addTab(tabLayout.newTab().setText(title.name));
-                ProjectTabPageFragment fragment = ProjectTabPageFragment.newInstance(title.id);
+                ProjectTabPageMvpFragment fragment = ProjectTabPageMvpFragment.newInstance(title.id);
                 fragmentList.add(fragment);
             }
 
@@ -64,7 +64,7 @@ public class ProjectFragment extends BaseFragment<ProjectPresenter> implements P
 
     }
 
-    private void setupTabPage(List<ProjectTabPageFragment> fragmentList, List<ProjectTitle> titleList) {
+    private void setupTabPage(List<ProjectTabPageMvpFragment> fragmentList, List<ProjectTitle> titleList) {
         fragmentAdapter = new ProjectTabPageFragmentAdapter(getFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(fragmentAdapter);
         tabLayout.setupWithViewPager(viewPager);

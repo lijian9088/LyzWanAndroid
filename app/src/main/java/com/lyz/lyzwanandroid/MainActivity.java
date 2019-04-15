@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
-import com.lyz.lyzwanandroid.ui.base.BaseAppCompatActivity;
+import com.lyz.lyzwanandroid.ui.base.BaseMvpActivity;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
-import com.lyz.lyzwanandroid.ui.module.home.HomeFragment;
-import com.lyz.lyzwanandroid.ui.module.navigation.NavigationFragment;
-import com.lyz.lyzwanandroid.ui.module.project.ProjectFragment;
+import com.lyz.lyzwanandroid.ui.module.home.HomeMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.navigation.NavigationMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.project.ProjectMvpFragment;
 import com.lyz.lyzwanandroid.widget.LyzBottomNavigationView;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseAppCompatActivity {
+public class MainActivity extends BaseMvpActivity {
 
     @BindView(R.id.navigation)
     LyzBottomNavigationView navView;
@@ -30,11 +30,11 @@ public class MainActivity extends BaseAppCompatActivity {
     @Override
     protected void initView() {
         fragmentManager = getSupportFragmentManager();
-
         createFragments();
         setupNav();
-
         selectFragment(0);
+
+        enableSwipeBackLeft(false);
     }
 
     @Override
@@ -55,15 +55,15 @@ public class MainActivity extends BaseAppCompatActivity {
     private void createFragments() {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        HomeFragment homeFragment = new HomeFragment();
+        HomeMvpFragment homeFragment = new HomeMvpFragment();
         fragmentList.add(homeFragment);
         transaction.add(R.id.container, homeFragment);
 
-        ProjectFragment projectFragment = new ProjectFragment();
+        ProjectMvpFragment projectFragment = new ProjectMvpFragment();
         fragmentList.add(projectFragment);
         transaction.add(R.id.container, projectFragment);
 
-        NavigationFragment navigationFragment = new NavigationFragment();
+        NavigationMvpFragment navigationFragment = new NavigationMvpFragment();
         fragmentList.add(navigationFragment);
         transaction.add(R.id.container, navigationFragment);
 

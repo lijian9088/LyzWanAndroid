@@ -8,15 +8,13 @@ import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.ui.base.BaseAppCompatActivity;
+import com.lyz.lyzwanandroid.ui.base.BaseMvpActivity;
 import com.lyz.lyzwanandroid.widget.MarkdownView;
 
 import butterknife.BindView;
@@ -26,7 +24,7 @@ import butterknife.BindView;
  * @create 2019/03/29
  * @Describe
  */
-public class WebActivity extends BaseAppCompatActivity<WebPresenter> implements WebContract.View {
+public class WebActivity extends BaseMvpActivity<WebPresenter> implements WebContract.View {
 
     @BindView(R.id.markdownView)
     MarkdownView markdownView;
@@ -59,13 +57,8 @@ public class WebActivity extends BaseAppCompatActivity<WebPresenter> implements 
     }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
     protected void initView() {
+        enableSwipeBackLeft(true);
         markdownView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {

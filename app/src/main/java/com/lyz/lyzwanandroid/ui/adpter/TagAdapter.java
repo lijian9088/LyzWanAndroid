@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.NavLinkBean;
-import com.lyz.lyzwanandroid.ui.holder.TagHolder;
 import com.lyz.lyzwanandroid.ui.listener.OnTagClickListener;
 import com.lyz.lyzwanandroid.widget.TagTextView;
 
@@ -24,7 +24,7 @@ import java.util.Set;
  * @create 2019/03/25
  * @Describe
  */
-public class TagAdapter extends RecyclerView.Adapter<TagHolder> {
+public class TagAdapter extends RecyclerView.Adapter<TagAdapter.TagHolder> {
 
     public OnTagClickListener listener;
     private List<String> titleList;
@@ -41,6 +41,16 @@ public class TagAdapter extends RecyclerView.Adapter<TagHolder> {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tag, viewGroup, false);
         TagHolder holder = new TagHolder(view);
         return holder;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemCount() {
+        return titleList != null ? titleList.size() : 0;
     }
 
     @Override
@@ -90,17 +100,21 @@ public class TagAdapter extends RecyclerView.Adapter<TagHolder> {
 
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemCount() {
-        return titleList != null ? titleList.size() : 0;
-    }
-
     public void setOnTagClickListen(OnTagClickListener listener) {
         this.listener = listener;
+    }
+
+    public class TagHolder extends RecyclerView.ViewHolder {
+
+        public TextView tvTitle;
+        public FlexboxLayout flexBox;
+
+        public TagHolder(@NonNull View itemView) {
+            super(itemView);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            flexBox = itemView.findViewById(R.id.flexBox);
+//        setIsRecyclable(false);
+        }
+
     }
 }

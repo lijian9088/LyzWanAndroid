@@ -16,7 +16,7 @@ import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.TabAdapter;
 import com.lyz.lyzwanandroid.ui.adpter.TagAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseFragment;
+import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
 import com.lyz.lyzwanandroid.ui.listener.OnTagClickListener;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
@@ -35,7 +35,7 @@ import butterknife.BindView;
  * @create 2019/03/19
  * @Describe
  */
-public class NavigationFragment extends BaseFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
@@ -108,10 +108,9 @@ public class NavigationFragment extends BaseFragment<NavigationPresenter> implem
         layoutManager.setFlexDirection(FlexDirection.ROW);
         layoutManager.setJustifyContent(JustifyContent.CENTER);
         rvTag.setLayoutManager(layoutManager);
+        rvTag.setHasFixedSize(true);
         tagAdapter = new TagAdapter();
-        tagAdapter.setHasStableIds(true);
         rvTag.setAdapter(tagAdapter);
-
     }
 
     @Override
