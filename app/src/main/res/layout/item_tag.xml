@@ -17,6 +17,13 @@
         android:id="@+id/flowLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:max_select="-1"/>
+        app:max_select="-1" />
+
+    <!--<com.google.android.flexbox.FlexboxLayout-->
+    <!--android:id="@+id/flexboxLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:flexDirection="row"-->
+    <!--app:flexWrap="wrap" />-->
 
 </LinearLayout>

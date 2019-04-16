@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.flexbox.FlexboxLayout;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
@@ -49,8 +50,6 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
             @Override
             public View getView(FlowLayout parent, int position, WanAndroidData wanAndroidData) {
-//                TextView textView = new TextView(parent.getContext());
-//                textView.setText(wanAndroidData.title);
                 TagTextView textView = TagTextView.newInstance(parent.getContext());
                 textView.setText(wanAndroidData.title);
                 return textView;
@@ -69,17 +68,30 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
             }
         });
 
+        //使用flexboxLayout，每次需要先清除view，removeAllViews()
+//        List<WanAndroidData> articles = navigation.articles;
+//        FlexboxLayout flexboxLayout = holder.flexboxLayout;
+//        flexboxLayout.removeAllViews();
+//        for (int i = 0; i < articles.size(); i++) {
+//            WanAndroidData wanAndroidData = articles.get(i);
+//            TagTextView textView = TagTextView.newInstance(flexboxLayout.getContext());
+//            textView.setText(wanAndroidData.title);
+//            flexboxLayout.addView(textView);
+//        }
+
     }
 
     public class TagHolder extends RecyclerView.ViewHolder {
 
         public TextView tvTitle;
         public TagFlowLayout flowLayout;
+        public FlexboxLayout flexboxLayout;
 
         public TagHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             flowLayout = itemView.findViewById(R.id.flowLayout);
+//            flexboxLayout = itemView.findViewById(R.id.flexboxLayout);
         }
 
     }
