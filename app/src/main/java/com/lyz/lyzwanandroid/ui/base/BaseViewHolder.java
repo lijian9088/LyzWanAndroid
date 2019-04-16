@@ -22,6 +22,12 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements 
         ButterKnife.bind(this, itemView);
     }
 
+    public BaseViewHolder(@NonNull View itemView,OnItemClickListener listener) {
+        this(itemView);
+        itemView.setOnClickListener(this);
+        setOnItemClickListener(listener);
+    }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
     }

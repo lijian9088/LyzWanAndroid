@@ -7,25 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.google.android.flexbox.FlexDirection;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.data.model.NavLinkBean;
 import com.lyz.lyzwanandroid.data.model.Navigation;
-import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.TabAdapter;
-import com.lyz.lyzwanandroid.ui.adpter.TagAdapter;
+import com.lyz.lyzwanandroid.ui.adpter.TagRvAdapter;
 import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
-import com.lyz.lyzwanandroid.ui.listener.OnTagClickListener;
-import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
-import com.lyz.lyzwanandroid.widget.TagTextView;
 import com.lyz.lyzwanandroid.widget.scroller.AdvertiseLinearSmoothScroller;
 import com.orhanobut.logger.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,9 +35,7 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
     RecyclerView rvTag;
 
     private TabAdapter tabAdapter;
-    private TagAdapter tagAdapter;
-    private ArrayList<String> titles;
-    private HashMap<String, ArrayList<NavLinkBean>> map;
+    private TagRvAdapter tagRvAdapter;
 
     @Override
     protected int getLayout() {
@@ -88,6 +76,7 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
         tabAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Logger.d("position:"+position);
                 if (rvTag != null) {
                     rvTag.smoothScrollToPosition(position);
                 }
@@ -97,7 +86,7 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
     }
 
     private void initRvTag() {
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(getContext()) {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext()) {
             @Override
             public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
                 AdvertiseLinearSmoothScroller linearSmoothScroller = new AdvertiseLinearSmoothScroller(recyclerView.getContext());
@@ -105,12 +94,11 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
                 startSmoothScroll(linearSmoothScroller);
             }
         };
-        layoutManager.setFlexDirection(FlexDirection.ROW);
-        layoutManager.setJustifyContent(JustifyContent.CENTER);
+
         rvTag.setLayoutManager(layoutManager);
         rvTag.setHasFixedSize(true);
-        tagAdapter = new TagAdapter();
-        rvTag.setAdapter(tagAdapter);
+        tagRvAdapter = new TagRvAdapter();
+        rvTag.setAdapter(tagRvAdapter);
     }
 
     @Override
@@ -121,35 +109,8 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
     @Override
     public void setNavigationData(List<Navigation> data) {
 
-        titles = new ArrayList<>();
-        map = new HashMap<>();
-
-        for (int i = 0; i < data.size(); i++) {
-            Navigation navigation = data.get(i);
-            List<WanAndroidData> wanAndroidDatas = navigation.articles;
-
-            ArrayList<NavLinkBean> arrayList = new ArrayList<>();
-            for (int j = 0; j < wanAndroidDatas.size(); j++) {
-                WanAndroidData wanAndroidData = wanAndroidDatas.get(j);
-                String chapterName = wanAndroidData.chapterName;
-                String title = wanAndroidData.title;
-                String link = wanAndroidData.link;
-
-                if (j == 0) {
-                    titles.add(chapterName);
-                }
-                NavLinkBean navLinkBean = new NavLinkBean();
-                navLinkBean.chapterName = chapterName;
-                navLinkBean.title = title;
-                navLinkBean.link = link;
-                arrayList.add(navLinkBean);
-
-                map.put(titles.get(i), arrayList);
-            }
-        }
-
-        initTabData();
-        initTagData();
+        initTabData(data);
+        initTagData(data);
 
         hideLoading();
     }
@@ -166,28 +127,15 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
 
     @Override
     public void clearData() {
-
+        tabAdapter.clearData();
+        tagRvAdapter.clearData();
     }
 
-    private void initTabData() {
-        tabAdapter.setData(titles);
+    private void initTabData(List<Navigation> data) {
+        tabAdapter.setData(data);
     }
 
-    private void initTagData() {
-        tagAdapter.setData(titles, map);
-
-        tagAdapter.setOnTagClickListen(new OnTagClickListener() {
-            @Override
-            public void onClick(TagTextView tag) {
-                NavLinkBean tagData = (NavLinkBean) tag.tagData;
-                int position = tagData.position;
-                String link = tagData.link;
-                String chapterName = tagData.chapterName;
-                String title = tagData.title;
-                Logger.d("position:%d,link:%s,chapterName:%s,title:%s",
-                        position, link, chapterName, title);
-                WebActivity.goActivity(getActivity(), link);
-            }
-        });
+    private void initTagData(List<Navigation> data) {
+        tagRvAdapter.setData(data);
     }
 }

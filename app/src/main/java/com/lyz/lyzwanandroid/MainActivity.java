@@ -1,6 +1,8 @@
 package com.lyz.lyzwanandroid;
 
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,8 +14,8 @@ import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.module.home.HomeMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.navigation.NavigationMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.project.ProjectMvpFragment;
-import com.lyz.lyzwanandroid.widget.LyzBottomNavigationView;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +24,7 @@ import butterknife.BindView;
 public class MainActivity extends BaseMvpActivity {
 
     @BindView(R.id.navigation)
-    LyzBottomNavigationView navView;
+    BottomNavigationView bottomNavigationView;
 
     List<Fragment> fragmentList = new ArrayList<>();
     private FragmentManager fragmentManager;
@@ -71,7 +73,7 @@ public class MainActivity extends BaseMvpActivity {
     }
 
     private void setupNav() {
-        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
@@ -96,6 +98,8 @@ public class MainActivity extends BaseMvpActivity {
                 }
             }
         });
+
+        disableShiftMode(bottomNavigationView);
     }
 
     private void selectFragment(int index) {
@@ -111,5 +115,23 @@ public class MainActivity extends BaseMvpActivity {
         }
 
         transaction.commit();
+    }
+
+    public void disableShiftMode(BottomNavigationView navigationView) {
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
+        try {
+            // 利用反射，改变 item 中 mShiftingMode 的值 ,从而改变 BottomNavigationView 默认的效果
+            Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+            shiftingMode.setAccessible(true);
+            shiftingMode.setBoolean(menuView, false);
+            shiftingMode.setAccessible(false);
+            for (int i = 0; i < menuView.getChildCount(); i++) {
+                BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+                itemView.setShiftingMode(false);
+                itemView.setChecked(itemView.getItemData().isChecked());
+            }
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }

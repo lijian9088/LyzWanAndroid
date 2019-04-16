@@ -18,7 +18,6 @@ public class TagTextView extends android.support.v7.widget.AppCompatTextView {
 
     private float textSize = 16f;
     private int padding = 10;
-    public AbsTagData tagData;
 
     private TagTextView(Context context) {
         this(context, null);
@@ -37,19 +36,8 @@ public class TagTextView extends android.support.v7.widget.AppCompatTextView {
         setPadding(padding, padding, padding, padding);
     }
 
-    public static TagTextView newTag(Context context) {
+    public static TagTextView newInstance(Context context) {
         return new TagTextView(context);
-    }
-
-    public static TagTextView newTag(Context context, AbsTagData tagData) {
-        TagTextView tagTextView = new TagTextView(context);
-        tagTextView.tagData = tagData;
-        return tagTextView;
-    }
-
-    public static abstract class AbsTagData{
-        public int position;
-
     }
 
 }
