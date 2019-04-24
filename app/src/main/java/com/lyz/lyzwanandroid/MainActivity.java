@@ -14,6 +14,7 @@ import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.module.home.HomeMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.navigation.NavigationMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.project.ProjectMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.tree.TreeMvpFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -64,6 +65,10 @@ public class MainActivity extends BaseMvpActivity {
         ProjectMvpFragment projectFragment = new ProjectMvpFragment();
         fragmentList.add(projectFragment);
         transaction.add(R.id.container, projectFragment);
+
+        TreeMvpFragment treeFragment = TreeMvpFragment.newInstance();
+        fragmentList.add(treeFragment);
+        transaction.add(R.id.container, treeFragment);
 
         NavigationMvpFragment navigationFragment = new NavigationMvpFragment();
         fragmentList.add(navigationFragment);

@@ -6,6 +6,7 @@ import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
+import com.lyz.lyzwanandroid.data.model.TreeData;
 
 import java.util.List;
 
@@ -35,5 +36,8 @@ public interface WanAndroidService {
 
     @GET("navi/json")
     Observable<BaseResponse<List<Navigation>>> requestNavigation();
+
+    @GET("tree/json")
+    Observable<BaseResponse<List<TreeData>>> requestTree();
 
 }

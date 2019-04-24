@@ -6,6 +6,7 @@ import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
+import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.remote.WanAndroidService;
 
 import java.util.List;
@@ -109,6 +110,17 @@ public class NetworkManager {
      */
     public Observable<BaseResponse<List<Navigation>>> getNavigation() {
         return service.requestNavigation()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取navigation数据
+     *
+     * @return
+     */
+    public Observable<BaseResponse<List<TreeData>>> getTree() {
+        return service.requestTree()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }
