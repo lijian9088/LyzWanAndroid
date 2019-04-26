@@ -39,7 +39,7 @@ public class MainActivity extends BaseMvpActivity {
     @Override
     protected void initView() {
         setupNav();
-        enableSwipeBackLeft(false);
+//        enableSwipeBackLeft(false);
 
         fragmentList.add(HomeMvpFragment.newInstance());
         fragmentList.add(ProjectMvpFragment.newInstance());

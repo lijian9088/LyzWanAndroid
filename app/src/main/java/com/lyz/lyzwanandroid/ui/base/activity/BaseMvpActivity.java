@@ -8,11 +8,12 @@ import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
 import butterknife.ButterKnife;
+import me.yokeyword.fragmentation.SupportActivity;
 
 /**
  * @author liyanze
  */
-public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseSwipeBackActivity implements IView {
+public abstract class BaseMvpActivity<T extends BasePresenter> extends SupportActivity implements IView {
 
     protected T presenter;
 

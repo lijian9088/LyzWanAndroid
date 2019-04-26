@@ -56,7 +56,7 @@ public class WebActivity extends BaseMvpActivity<WebPresenter> implements WebCon
 
     @Override
     protected void initView() {
-        enableSwipeBackLeft(true);
+//        enableSwipeBackLeft(true);
         markdownView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {

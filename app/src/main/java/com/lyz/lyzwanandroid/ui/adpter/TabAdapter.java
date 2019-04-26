@@ -28,9 +28,10 @@ public class TabAdapter extends BaseRecyclerViewAdapter<Navigation, TabAdapter.T
 
     @Override
     public void onBindViewHolder(@NonNull TabHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
         Navigation navigation = data.get(position);
         String name = navigation.name;
-        if (!TextUtils.isEmpty(name)){
+        if (!TextUtils.isEmpty(name)) {
             holder.setText(name);
         }
     }
