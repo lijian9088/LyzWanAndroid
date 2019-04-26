@@ -8,7 +8,7 @@ import android.view.View;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageFragmentAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageMvpFragment;
 
 import java.util.ArrayList;
@@ -24,6 +24,15 @@ public class ProjectMvpFragment extends BaseMvpFragment<ProjectPresenter> implem
     @BindView(R.id.viewPager)
     ViewPager viewPager;
     private ProjectTabPageFragmentAdapter fragmentAdapter;
+
+    public static ProjectMvpFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        ProjectMvpFragment fragment = new ProjectMvpFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int getLayout() {

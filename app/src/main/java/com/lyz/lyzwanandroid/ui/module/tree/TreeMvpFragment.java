@@ -9,7 +9,7 @@ import android.view.View;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.adpter.TreeAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -36,7 +36,7 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_tree;
+        return R.layout.layout_smartrefresh_rv;
     }
 
     @Override

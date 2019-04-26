@@ -16,7 +16,9 @@ public interface HomeContract {
     interface View extends IView {
         void showLoading();
 
-        void hideLoading();
+        void hideLoading(boolean success);
+
+        void hideLoadMore(boolean success);
 
         void setBannerData(List<Banner> data);
 
@@ -25,10 +27,6 @@ public interface HomeContract {
         void appendItemData(List<WanAndroidData> data);
 
         void clearData();
-
-        void setFooterState(int footerState);
-
-        void onInitAllDataFinish();
 
     }
 

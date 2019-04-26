@@ -1,4 +1,4 @@
-package com.lyz.lyzwanandroid.ui.base;
+package com.lyz.lyzwanandroid.ui.base.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,7 +15,10 @@ import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseMvpFragment<T extends BasePresenter> extends Fragment implements IView {
+/**
+ * @author liyanze
+ */
+public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseSwipeBackFragment implements IView {
 
     protected T presenter;
 

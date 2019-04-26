@@ -9,9 +9,8 @@ import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
-import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseViewHolder;
-import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 
 /**
  * @author liyanze
@@ -20,18 +19,11 @@ import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
  */
 public class TabAdapter extends BaseRecyclerViewAdapter<Navigation, TabAdapter.TabHolder> {
 
-    private OnItemClickListener listener;
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.listener = listener;
-    }
-
     @NonNull
     @Override
     public TabHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tab, viewGroup, false);
-        TabHolder holder = new TabHolder(view, listener);
-        return holder;
+        return new TabHolder(view);
     }
 
     @Override
@@ -47,8 +39,8 @@ public class TabAdapter extends BaseRecyclerViewAdapter<Navigation, TabAdapter.T
 
         private final TextView tv;
 
-        public TabHolder(@NonNull View itemView, OnItemClickListener listener) {
-            super(itemView, listener);
+        public TabHolder(@NonNull View itemView) {
+            super(itemView);
             tv = itemView.findViewById(R.id.tv);
         }
 

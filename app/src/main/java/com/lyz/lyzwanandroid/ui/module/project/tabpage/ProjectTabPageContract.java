@@ -15,7 +15,9 @@ public interface ProjectTabPageContract {
     interface View extends IView {
         void showLoading();
 
-        void hideLoading();
+        void hideLoading(boolean success);
+
+        void hideLoadMore(boolean success);
 
         void setItemData(List<WanAndroidData> data);
 
@@ -23,7 +25,6 @@ public interface ProjectTabPageContract {
 
         void clearData();
 
-        void setFooterState(int footerState);
     }
 
     interface Presenter extends IPresenter<ProjectTabPageContract.View> {

@@ -1,4 +1,4 @@
-package com.lyz.lyzwanandroid.ui.base;
+package com.lyz.lyzwanandroid.ui.base.recyclerview;
 
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;

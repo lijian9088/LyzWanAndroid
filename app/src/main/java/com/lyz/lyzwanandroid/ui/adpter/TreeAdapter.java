@@ -1,7 +1,5 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +8,8 @@ import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
-import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseViewHolder;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;

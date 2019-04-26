@@ -3,8 +3,6 @@ package com.lyz.lyzwanandroid.ui.module.web;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.ui.base.BaseMvpActivity;
+import com.lyz.lyzwanandroid.ui.base.activity.BaseMvpActivity;
 import com.lyz.lyzwanandroid.widget.MarkdownView;
 
 import butterknife.BindView;

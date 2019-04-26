@@ -1,8 +1,7 @@
-package com.lyz.lyzwanandroid.ui.base;
+package com.lyz.lyzwanandroid.ui.base.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
@@ -10,6 +9,9 @@ import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
 import butterknife.ButterKnife;
 
+/**
+ * @author liyanze
+ */
 public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseSwipeBackActivity implements IView {
 
     protected T presenter;
@@ -24,18 +26,6 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseSwipe
         initData();
     }
 
-    protected abstract void initView();
-
-    protected abstract void initData();
-
-    @Override
-    protected void onDestroy() {
-        if (presenter != null) {
-            presenter.detachView();
-        }
-        super.onDestroy();
-    }
-
     protected abstract int getLayoutRes();
 
     private void initPresenter() {
@@ -45,7 +35,19 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseSwipe
         }
     }
 
+    protected abstract void initView();
+
+    protected abstract void initData();
+
     protected abstract T createPresenter();
+
+    @Override
+    protected void onDestroy() {
+        if (presenter != null) {
+            presenter.detachView();
+        }
+        super.onDestroy();
+    }
 
     @Override
     public void showToast(String msg) {

@@ -1,7 +1,7 @@
 package com.lyz.lyzwanandroid.ui.module.project.tabpage;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +10,12 @@ import android.view.View;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
-import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewWithHeaderAndFooterAdapter;
-import com.lyz.lyzwanandroid.ui.listener.LyzRvListener;
+import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
@@ -26,8 +28,8 @@ import butterknife.BindView;
  */
 public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePresenter> implements ProjectTabPageContract.View {
 
-    @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout swipeLayout;
+    @BindView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
 
     @BindView(R.id.recyclerView)
     RecyclerView rv;
@@ -47,7 +49,7 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_project_tabpage;
+        return R.layout.layout_smartrefresh_rv;
     }
 
     @Override
@@ -59,30 +61,31 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
 
     @Override
     protected void initView(View view) {
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        rv.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new ProjectTabPageAdapter();
+        rv.setAdapter(adapter);
+        rv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<WanAndroidData>() {
             @Override
-            public void onRefresh() {
+            public void onItemClick(int position, WanAndroidData data) {
+                String link = data.link;
+                WebActivity.goActivity(getActivity(), link);
+            }
+        });
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 clearData();
                 page = 1;
                 presenter.getProject(page, currentCid);
             }
         });
-        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new ProjectTabPageAdapter();
-        rv.setAdapter(adapter);
-        rv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        rv.addOnScrollListener(new LyzRvListener() {
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
-            public void onEnd() {
-                setFooterState(BaseRecyclerViewWithHeaderAndFooterAdapter.STATE_FOOTER_LOADING);
-                presenter.getProject(page++, currentCid);
-            }
-        });
-        adapter.setOnItemClickListener(new BaseRecyclerViewWithHeaderAndFooterAdapter.OnItemClickListener<WanAndroidData>() {
-            @Override
-            public void onItemClick(int position, WanAndroidData data) {
-                String link = data.link;
-                WebActivity.goActivity(getActivity(), link);
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                page++;
+                presenter.getProject(page, currentCid);
             }
         });
     }
@@ -92,30 +95,31 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
         Bundle arguments = getArguments();
         currentCid = arguments.getInt("cid");
         showLoading();
-        page = 1;
-        presenter.getProject(page, currentCid);
     }
 
     @Override
     public void showLoading() {
-        swipeLayout.setRefreshing(true);
+        refreshLayout.autoRefresh();
     }
 
     @Override
-    public void hideLoading() {
-        swipeLayout.setRefreshing(false);
+    public void hideLoading(boolean success) {
+        refreshLayout.finishRefresh(success);
+    }
+
+    @Override
+    public void hideLoadMore(boolean success) {
+        refreshLayout.finishLoadMore(success);
     }
 
     @Override
     public void setItemData(List<WanAndroidData> data) {
         adapter.setData(data);
-        hideLoading();
     }
 
     @Override
     public void appendItemData(List<WanAndroidData> data) {
         adapter.appendItems(data);
-        hideLoading();
     }
 
     @Override
@@ -123,8 +127,4 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
         adapter.clearData();
     }
 
-    @Override
-    public void setFooterState(int footerState) {
-        adapter.setFooterState(footerState);
-    }
 }

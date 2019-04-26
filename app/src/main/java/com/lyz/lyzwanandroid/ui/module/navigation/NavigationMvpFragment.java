@@ -11,8 +11,8 @@ import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.ui.adpter.TabAdapter;
 import com.lyz.lyzwanandroid.ui.adpter.TagRvAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
-import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
+import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.widget.scroller.AdvertiseLinearSmoothScroller;
 import com.orhanobut.logger.Logger;
 
@@ -37,6 +37,16 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
     private TabAdapter tabAdapter;
     private TagRvAdapter tagRvAdapter;
 
+
+    public static NavigationMvpFragment newInstance() {
+
+        Bundle args = new Bundle();
+
+        NavigationMvpFragment fragment = new NavigationMvpFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     protected int getLayout() {
         return R.layout.fragment_navigation;
@@ -59,6 +69,7 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
                 startInitData();
             }
         });
+        swipeLayout.setEnabled(false);
 
         initRvTab();
         initRvTag();
@@ -73,10 +84,10 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
         rvTab.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         tabAdapter = new TabAdapter();
         rvTab.setAdapter(tabAdapter);
-        tabAdapter.setOnItemClickListener(new OnItemClickListener() {
+        tabAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Navigation>() {
             @Override
-            public void onItemClick(View view, int position) {
-                Logger.d("position:"+position);
+            public void onItemClick(int position, Navigation data) {
+                Logger.d("position:" + position);
                 if (rvTag != null) {
                     rvTag.smoothScrollToPosition(position);
                 }

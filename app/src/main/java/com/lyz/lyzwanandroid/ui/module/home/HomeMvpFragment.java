@@ -1,38 +1,53 @@
 package com.lyz.lyzwanandroid.ui.module.home;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.lyz.lyzwanandroid.R;
-import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.data.model.Banner;
+import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.HomeAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseMvpFragment;
-import com.lyz.lyzwanandroid.ui.listener.LyzRvListener;
+import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
+import com.orhanobut.logger.Logger;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * @author liyanze
+ */
 public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements HomeContract.View {
 
-    @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout swipeLayout;
+    @BindView(R.id.refreshLayout)
+    RefreshLayout refreshLayout;
 
     @BindView(R.id.recyclerView)
     RecyclerView rv;
 
     private HomeAdapter adapter;
-    private int page = 0;
+    private int page = 1;
+
+    public static HomeMvpFragment newInstance() {
+        Bundle args = new Bundle();
+        HomeMvpFragment fragment = new HomeMvpFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     protected int getLayout() {
-        return R.layout.fragment_home;
+        return R.layout.layout_smartrefresh_rv;
     }
 
     @Override
@@ -44,30 +59,34 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
 
     @Override
     protected void initView(View view) {
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                clearData();
-                startInitAllData();
-            }
-        });
 
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeAdapter();
         rv.setAdapter(adapter);
         rv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
-        rv.addOnScrollListener(new LyzRvListener() {
-            @Override
-            public void onEnd() {
-                setFooterState(HomeAdapter.STATE_FOOTER_LOADING);
-                presenter.getArticle(page++);
-            }
-        });
-        adapter.setOnItemClickListener(new HomeAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<WanAndroidData>() {
             @Override
             public void onItemClick(int position, WanAndroidData data) {
                 String link = data.link;
                 WebActivity.goActivity(getActivity(), link);
+//                WebFragment fragment = WebFragment.newInstance(link);
+//                start(fragment);
+            }
+        });
+
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
+                Logger.d("onRefresh");
+                clearData();
+                startInitAllData();
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
+                Logger.d("onLoadMore:" + page);
+                presenter.getArticle(page++);
             }
         });
 
@@ -75,7 +94,7 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        startInitAllData();
+        showLoading();
     }
 
     private void startInitAllData() {
@@ -85,68 +104,40 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
 
     @Override
     public void showLoading() {
-        swipeLayout.setRefreshing(true);
+        refreshLayout.autoRefresh();
     }
 
     @Override
-    public void hideLoading() {
-        swipeLayout.setRefreshing(false);
+    public void hideLoading(boolean success) {
+        refreshLayout.finishRefresh(success);
+    }
+
+    @Override
+    public void hideLoadMore(boolean success) {
+        refreshLayout.finishLoadMore(success);
     }
 
     @Override
     public void setBannerData(List<Banner> data) {
-        if (data != null && data.size() > 0) {
-            adapter.setBannerData(data);
-        } else {
-//            showNoBannerData
-        }
+        adapter.setBannerData(data);
     }
 
     @Override
     public void setItemData(List<WanAndroidData> data) {
-        if (data != null && data.size() > 0) {
-            adapter.setData(data);
-        } else {
-//            showNoData
-        }
+        adapter.setData(data);
     }
 
     @Override
     public void appendItemData(List<WanAndroidData> data) {
-        if (data == null || data.size() == 0) {
-            setFooterState(HomeAdapter.STATE_FOOTER_NOMORE);
-        } else {
-            adapter.appendItems(data);
-            setFooterState(HomeAdapter.STATE_FOOTER_HIDELOADING);
-        }
+        adapter.appendItems(data);
     }
 
     @Override
     public void clearData() {
         if (adapter != null) {
             adapter.clearData();
-            page = 0;
+            page = 1;
         }
-    }
-
-    @Override
-    public void setFooterState(int footerState) {
-        switch (footerState) {
-            case HomeAdapter.STATE_FOOTER_LOADING:
-                adapter.setFooterLoading();
-                break;
-            case HomeAdapter.STATE_FOOTER_NOMORE:
-                adapter.setFooterNoMore();
-                break;
-            case HomeAdapter.STATE_FOOTER_HIDELOADING:
-            default:
-                adapter.setFooterHideLoading();
-        }
-    }
-
-    @Override
-    public void onInitAllDataFinish() {
-        hideLoading();
     }
 
 }

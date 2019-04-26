@@ -1,5 +1,6 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,8 @@ import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
-import com.lyz.lyzwanandroid.ui.base.BaseRecyclerViewWithHeaderAndFooterAdapter;
-import com.lyz.lyzwanandroid.ui.base.BaseViewHolder;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 
 import butterknife.BindView;
 
@@ -17,23 +18,19 @@ import butterknife.BindView;
  * @create 2019/02/18
  * @Describe
  */
-public class ProjectTabPageAdapter extends BaseRecyclerViewWithHeaderAndFooterAdapter<WanAndroidData> {
+public class ProjectTabPageAdapter extends BaseRecyclerViewAdapter<WanAndroidData, ProjectTabPageAdapter.ItemViewHolder> {
 
+    @NonNull
     @Override
-    protected boolean hasHeader() {
-        return false;
+    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
+        return new ItemViewHolder(view);
     }
 
     @Override
-    protected BaseViewHolder createItemViewHolder(ViewGroup viewGroup, int viewType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home, viewGroup, false);
-        ItemViewHolder viewHolder = new ItemViewHolder(view);
-        return viewHolder;
-    }
-
-    @Override
-    protected boolean hasFooter() {
-        return true;
+    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
+        holder.bind(position);
     }
 
     public class ItemViewHolder extends BaseViewHolder {

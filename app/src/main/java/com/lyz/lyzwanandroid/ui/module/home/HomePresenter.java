@@ -69,7 +69,8 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
 
                     @Override
                     public void onNext(BaseResponse<ArticleList> articleListBaseResponse) {
-                        if (articleListBaseResponse.errorCode == 0) {
+                        boolean isSuccess = articleListBaseResponse.errorCode == 0;
+                        if (isSuccess) {
                             List<WanAndroidData> datas = articleListBaseResponse.data.datas;
 
                             if (page == 0) {
@@ -79,11 +80,21 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                             }
 
                         }
+
+                        if (page == 0) {
+                            view.hideLoading(isSuccess);
+                        } else {
+                            view.hideLoadMore(isSuccess);
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        if (page == 0) {
+                            view.hideLoading(false);
+                        } else {
+                            view.hideLoadMore(false);
+                        }
                     }
 
                     @Override
@@ -107,7 +118,8 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                     @Override
                     public void onNext(BaseResponse<?> baseResponse) {
                         Logger.d("onNext");
-                        if (baseResponse.errorCode == 0) {
+                        boolean isSuccess = baseResponse.errorCode == 0;
+                        if (isSuccess) {
                             if (baseResponse.data instanceof List) {
                                 view.setBannerData((List<Banner>) baseResponse.data);
                             } else if (baseResponse.data instanceof ArticleList) {
@@ -115,18 +127,16 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                                 view.setItemData(datas);
                             }
 
-                        }else{
-
                         }
 
-                        view.onInitAllDataFinish();
+                        view.hideLoading(isSuccess);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Logger.d("onError");
                         e.printStackTrace();
-                        view.onInitAllDataFinish();
+                        view.hideLoading(false);
                     }
 
                     @Override

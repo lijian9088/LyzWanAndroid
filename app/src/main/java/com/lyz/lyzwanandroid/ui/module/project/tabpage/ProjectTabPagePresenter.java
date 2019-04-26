@@ -36,7 +36,8 @@ public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContrac
 
                     @Override
                     public void onNext(BaseResponse<ProjectList> projectListBaseResponse) {
-                        if (projectListBaseResponse.errorCode == 0) {
+                        boolean success = projectListBaseResponse.errorCode == 0;
+                        if (success) {
                             ProjectList projectList = projectListBaseResponse.data;
                             List<WanAndroidData> datas = projectList.datas;
                             if (page > 1) {
@@ -45,11 +46,23 @@ public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContrac
                                 view.setItemData(datas);
                             }
                         }
+
+                        if (page > 1) {
+                            view.hideLoadMore(success);
+                        } else {
+                            view.hideLoading(success);
+                        }
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
+                        if (page > 1) {
+                            view.hideLoadMore(false);
+                        } else {
+                            view.hideLoading(false);
+                        }
                     }
 
                     @Override

@@ -1,4 +1,4 @@
-package com.lyz.lyzwanandroid.ui.base;
+package com.lyz.lyzwanandroid.ui.base.recyclerview;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -15,18 +15,18 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    private OnItemClickListener itemClickListener;
+    public OnItemClickListener itemClickListener;
 
     public BaseViewHolder(@NonNull View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }
 
-    public BaseViewHolder(@NonNull View itemView,OnItemClickListener listener) {
-        this(itemView);
-        itemView.setOnClickListener(this);
-        setOnItemClickListener(listener);
-    }
+//    public BaseViewHolder(@NonNull View itemView,OnItemClickListener listener) {
+//        this(itemView);
+//        itemView.setOnClickListener(this);
+//        setOnItemClickListener(listener);
+//    }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.itemClickListener = listener;
@@ -45,6 +45,5 @@ public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements 
 
     protected void bind(int position) {
     }
-
 
 }
