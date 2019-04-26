@@ -88,6 +88,6 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
 
     @Override
     public void clearData() {
-
+        treeAdapter.clearData();
     }
 }

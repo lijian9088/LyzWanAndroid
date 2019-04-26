@@ -16,7 +16,6 @@ import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
-import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.stx.xhb.xbanner.XBanner;
 
 import java.util.List;
@@ -121,10 +120,7 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
         }
     }
 
-    public class ItemViewHolder extends BaseViewHolder implements View.OnClickListener {
-
-        @BindView(R.id.container)
-        ViewGroup container;
+    public class ItemViewHolder extends BaseViewHolder implements View.OnClickListener, com.lyz.lyzwanandroid.ui.listener.OnItemClickListener {
 
         @BindView(R.id.tvChapter)
         TextView tvChapter;
@@ -140,21 +136,12 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (listener != null) {
-                int position = getLayoutPosition() - 1;
-                WanAndroidData wanAndroidData = data.get(position);
-                listener.onItemClick(position, wanAndroidData);
-            }
+            itemView.setOnClickListener(this);
+            setOnItemClickListener(this);
         }
 
         @Override
         protected void bind(int position) {
-            container.setOnClickListener(this);
-
             WanAndroidData wanAndroidData = data.get(position - 1);
             tvChapter.setText(wanAndroidData.chapterName);
             tvTitle.setText(wanAndroidData.title);
@@ -163,6 +150,12 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
         }
 
 
+        @Override
+        public void onItemClick(View view, int position) {
+            if (listener != null) {
+                listener.onItemClick(position, data.get(position - 1));
+            }
+        }
     }
 
 }
