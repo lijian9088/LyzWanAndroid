@@ -32,7 +32,7 @@ public interface WanAndroidService {
     Observable<BaseResponse<List<ProjectTitle>>> requestProjectTitle();
 
     @GET("project/list/{page}/json")
-    Observable<BaseResponse<ProjectList>> requestProjectList(@Path("page") int page, @Query("cid") int cid);
+    Observable<BaseResponse<ArticleList>> requestArticleWithCidList(@Path("page") int page, @Query("cid") int cid);
 
     @GET("navi/json")
     Observable<BaseResponse<List<Navigation>>> requestNavigation();

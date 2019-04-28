@@ -35,6 +35,7 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
 
     @Override
     public void onBindViewHolder(@NonNull TreeViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
         TreeData treeData = data.get(position);
         List<TreeData> children = treeData.children;
 
@@ -49,6 +50,7 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
                 return textView;
             }
         });
+
     }
 
     class TreeViewHolder extends BaseViewHolder {

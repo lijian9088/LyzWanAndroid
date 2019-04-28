@@ -10,6 +10,9 @@ import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.adpter.TreeAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
+import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
+import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -59,6 +62,15 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
             }
         });
         refreshLayout.setEnableLoadMore(false);
+
+        treeAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<TreeData>() {
+            @Override
+            public void onItemClick(int position, TreeData data) {
+                int cid = data.id;
+                ProjectTabPageMvpFragment fragment = ProjectTabPageMvpFragment.newInstance(cid);
+                start(fragment);
+            }
+        });
     }
 
     @Override
@@ -68,12 +80,7 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
 
     @Override
     public void setTreeData(List<TreeData> data) {
-        if (data != null) {
-            treeAdapter.setData(data);
-        } else {
-            showToast("获取数据出错");
-        }
-        hideLoading();
+        treeAdapter.setData(data);
     }
 
     @Override
@@ -82,8 +89,8 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
     }
 
     @Override
-    public void hideLoading() {
-        refreshLayout.finishRefresh();
+    public void hideLoading(boolean success) {
+        refreshLayout.finishRefresh(success);
     }
 
     @Override

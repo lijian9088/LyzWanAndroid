@@ -11,14 +11,14 @@ import java.util.List;
  * @create 2019/04/16
  * @Describe
  */
-public class TreeContract {
+public interface TreeContract {
 
     interface View extends IView {
         void setTreeData(List<TreeData> data);
 
         void showLoading();
 
-        void hideLoading();
+        void hideLoading(boolean success);
 
         void clearData();
     }
@@ -26,4 +26,5 @@ public class TreeContract {
     interface Presenter extends IPresenter<TreeContract.View> {
         void getTreeData();
     }
+
 }

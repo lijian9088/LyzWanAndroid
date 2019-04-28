@@ -12,6 +12,7 @@ import com.lyz.lyzwanandroid.ui.module.home.HomeMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.navigation.NavigationMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.project.ProjectMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.tree.TreeMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.user.UserFragment;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ public class MainActivity extends BaseMvpActivity {
         fragmentList.add(ProjectMvpFragment.newInstance());
         fragmentList.add(TreeMvpFragment.newInstance());
         fragmentList.add(NavigationMvpFragment.newInstance());
+        fragmentList.add(UserFragment.newInstance());
 
         if (findFragment(HomeMvpFragment.class) == null) {
             loadMultipleRootFragment(R.id.container,
@@ -52,7 +54,8 @@ public class MainActivity extends BaseMvpActivity {
                     fragmentList.get(0),
                     fragmentList.get(1),
                     fragmentList.get(2),
-                    fragmentList.get(3));
+                    fragmentList.get(3),
+                    fragmentList.get(4));
         }
     }
 

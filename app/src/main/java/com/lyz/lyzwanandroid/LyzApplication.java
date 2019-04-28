@@ -16,6 +16,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 
+import me.yokeyword.fragmentation.Fragmentation;
+
 /**
  * @author liyanze
  */
@@ -45,6 +47,7 @@ public class LyzApplication extends Application {
     public void onCreate() {
         super.onCreate();
         initLogger();
+        initFragmentation();
     }
 
     private void initLogger() {
@@ -57,5 +60,14 @@ public class LyzApplication extends Application {
                 .build();
 
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+    }
+
+    private void initFragmentation() {
+        // 栈视图等功能，建议在Application里初始化
+        Fragmentation.builder()
+                // 显示悬浮球 ; 其他Mode:SHAKE: 摇一摇唤出   NONE：隐藏
+                .stackViewMode(Fragmentation.BUBBLE)
+                .debug(BuildConfig.DEBUG)
+                .install();
     }
 }

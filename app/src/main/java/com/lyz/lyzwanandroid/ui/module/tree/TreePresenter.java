@@ -1,7 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.tree;
 
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
-import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.NetworkManager;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
@@ -37,17 +36,19 @@ public class TreePresenter extends BasePresenter<TreeContract.View> implements T
 
                     @Override
                     public void onNext(BaseResponse<List<TreeData>> treeBaseResponse) {
-                        Logger.d("treeBaseResponse:" + treeBaseResponse);
-                        if (treeBaseResponse.errorCode == 0) {
+                        boolean success = treeBaseResponse.errorCode == 0;
+                        if (success) {
                             List<TreeData> data = treeBaseResponse.data;
                             view.setTreeData(data);
                         }
+
+                        view.hideLoading(success);
                     }
 
                     @Override
                     public void onError(Throwable e) {
                         Logger.e("tree,onError:" + e.getMessage());
-                        view.setTreeData(null);
+                        view.hideLoading(false);
                         e.printStackTrace();
                     }
 

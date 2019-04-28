@@ -9,6 +9,8 @@ import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
 import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 /**
  * @author liyanze
@@ -58,5 +60,18 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends SupportAc
     @Override
     public void showToast(String format, Object... args) {
         ToastUtils.showShort(format, args);
+    }
+
+    @Override
+    public FragmentAnimator onCreateFragmentAnimator() {
+        // 设置横向(和安卓4.x动画相同)
+        return new DefaultHorizontalAnimator();
+        // 设置无动画
+        // return new DefaultNoAnimator();
+        // 设置自定义动画
+        // return new FragmentAnimator(enter,exit,popEnter,popExit);
+
+        // 默认竖向(和安卓5.0以上的动画相同)
+//        return super.onCreateFragmentAnimator();
     }
 }

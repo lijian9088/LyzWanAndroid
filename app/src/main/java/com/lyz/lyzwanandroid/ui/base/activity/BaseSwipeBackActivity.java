@@ -3,8 +3,6 @@ package com.lyz.lyzwanandroid.ui.base.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import com.lyz.lyzwanandroid.common.SwipeBackUtils;
-
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
 /**
@@ -26,7 +24,7 @@ public class BaseSwipeBackActivity extends SwipeBackActivity {
      * @param isEnable
      */
     protected void enableSwipeBackLeft(boolean isEnable) {
-        SwipeBackUtils.convertActivityToTranslucent(this);
+//        SwipeBackUtils.convertActivityToTranslucent(this);
 //        getSwipeBackLayout().setEnableGesture(isEnable);
         setSwipeBackEnable(isEnable);
     }

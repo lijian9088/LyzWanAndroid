@@ -97,8 +97,8 @@ public class NetworkManager {
      * @param page
      * @return
      */
-    public Observable<BaseResponse<ProjectList>> getProjectList(int page, int cid) {
-        return service.requestProjectList(page, cid)
+    public Observable<BaseResponse<ArticleList>> getArticleWithCidList(int page, int cid) {
+        return service.requestArticleWithCidList(page, cid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }
@@ -124,4 +124,5 @@ public class NetworkManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }
+
 }

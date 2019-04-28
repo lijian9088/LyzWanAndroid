@@ -1,7 +1,7 @@
 package com.lyz.lyzwanandroid.ui.module.project.tabpage;
 
+import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
-import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.data.source.NetworkManager;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
@@ -27,19 +27,19 @@ public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContrac
     @Override
     public void getProject(int page, int cid) {
         NetworkManager.getInstance()
-                .getProjectList(page, cid)
-                .subscribe(new Observer<BaseResponse<ProjectList>>() {
+                .getArticleWithCidList(page, cid)
+                .subscribe(new Observer<BaseResponse<ArticleList>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onNext(BaseResponse<ProjectList> projectListBaseResponse) {
-                        boolean success = projectListBaseResponse.errorCode == 0;
+                    public void onNext(BaseResponse<ArticleList> articleListBaseResponse) {
+                        boolean success = articleListBaseResponse.errorCode == 0;
                         if (success) {
-                            ProjectList projectList = projectListBaseResponse.data;
-                            List<WanAndroidData> datas = projectList.datas;
+                            ArticleList list = articleListBaseResponse.data;
+                            List<WanAndroidData> datas = list.datas;
                             if (page > 1) {
                                 view.appendItemData(datas);
                             } else {

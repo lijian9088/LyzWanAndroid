@@ -31,6 +31,7 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseSwipe
         bind = ButterKnife.bind(this, view);
         if (presenter == null) {
             presenter = createPresenter();
+            presenter.attachView(this);
         }
         initView(view);
         initData(savedInstanceState);
