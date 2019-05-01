@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
-import com.blankj.utilcode.util.Utils;
 import com.google.android.flexbox.FlexboxLayout;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
@@ -29,8 +28,7 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
     @Override
     public TreeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tree, parent, false);
-        TreeViewHolder treeViewHolder = new TreeViewHolder(view);
-        return treeViewHolder;
+        return new TreeViewHolder(view);
     }
 
     @Override

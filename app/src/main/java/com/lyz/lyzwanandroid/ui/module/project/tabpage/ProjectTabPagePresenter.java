@@ -73,6 +73,53 @@ public class ProjectTabPagePresenter extends BasePresenter<ProjectTabPageContrac
     }
 
     @Override
+    public void getArticle(int page, int cid) {
+        NetworkManager.getInstance()
+                .getArticleWithCid(page, cid)
+                .subscribe(new Observer<BaseResponse<ArticleList>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(BaseResponse<ArticleList> articleListBaseResponse) {
+                        boolean isSuccess = articleListBaseResponse.errorCode == 0;
+                        if (isSuccess) {
+                            List<WanAndroidData> datas = articleListBaseResponse.data.datas;
+
+                            if (page == 0) {
+                                view.setItemData(datas);
+                            } else {
+                                view.appendItemData(datas);
+                            }
+
+                        }
+
+                        if (page == 0) {
+                            view.hideLoading(isSuccess);
+                        } else {
+                            view.hideLoadMore(isSuccess);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (page == 0) {
+                            view.hideLoading(false);
+                        } else {
+                            view.hideLoadMore(false);
+                        }
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
     public void detachView() {
         super.detachView();
         if (disposable != null) {

@@ -23,7 +23,7 @@ public class AdvertiseLinearSmoothScroller extends LinearSmoothScroller {
      */
     @Override
     protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
-        return 0.15f;
+        return 0.05f;
     }
 
     /**

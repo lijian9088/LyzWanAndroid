@@ -5,7 +5,6 @@ import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.Navigation;
-import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.remote.WanAndroidService;
 import com.orhanobut.logger.Logger;
@@ -36,8 +35,7 @@ public class NetworkManager {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                Logger.t("NetworkManager")
-                        .w(String.format("okHttp: %s", message));
+                System.out.println(String.format("okHttp: %s", message));
             }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -83,12 +81,24 @@ public class NetworkManager {
     }
 
     /**
-     * 获取project的标题
+     * 获取page页的文章子列表，需要cid
+     *
+     * @param page
+     * @return
+     */
+    public Observable<BaseResponse<ArticleList>> getArticleWithCid(int page, int cid) {
+        return service.requestArticleListWithCid(page, cid)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取project的data
      *
      * @return
      */
-    public Observable<BaseResponse<List<ProjectTitle>>> getProjectTitle() {
-        return service.requestProjectTitle()
+    public Observable<BaseResponse<List<TreeData>>> getProjectDatas() {
+        return service.requestProjectDatas()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }
@@ -100,7 +110,7 @@ public class NetworkManager {
      * @return
      */
     public Observable<BaseResponse<ArticleList>> getArticleWithCidList(int page, int cid) {
-        return service.requestArticleWithCidList(page, cid)
+        return service.requestProjectArticleWithCid(page, cid)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());
     }

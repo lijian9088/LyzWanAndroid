@@ -29,5 +29,6 @@ public interface ProjectTabPageContract {
 
     interface Presenter extends IPresenter<ProjectTabPageContract.View> {
         void getProject(int page, int cid);
+        void getArticle(int page, int cid);
     }
 }

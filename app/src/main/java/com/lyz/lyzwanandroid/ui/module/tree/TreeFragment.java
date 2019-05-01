@@ -11,7 +11,7 @@ import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.adpter.TreeAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
-import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageMvpFragment;
+import com.lyz.lyzwanandroid.ui.module.project.ProjectFragment;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -19,6 +19,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.lyz.lyzwanandroid.ui.module.project.ProjectFragment.TAG_TREE;
 
 public class TreeFragment extends BaseMvpFragment<TreePresenter> implements TreeContract.View {
 
@@ -68,14 +70,15 @@ public class TreeFragment extends BaseMvpFragment<TreePresenter> implements Tree
             public void onItemClick(int position, TreeData data) {
                 Logger.d("onItemClick:" + position);
                 int cid = data.id;
-                startViaParent(ProjectTabPageMvpFragment.newInstance(cid));
+                Logger.d("cid:" + cid);
+                startViaParent(ProjectFragment.newInstance(cid, TAG_TREE, data));
             }
         });
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        showLoading();
+        presenter.getTreeData();
     }
 
     @Override

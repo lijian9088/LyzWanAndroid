@@ -12,7 +12,7 @@ import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
-import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.lyz.lyzwanandroid.ui.module.project.ProjectFragment;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -27,7 +27,7 @@ import butterknife.BindView;
  * @create 2019/02/19
  * @Describe
  */
-public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePresenter> implements ProjectTabPageContract.View {
+public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresenter> implements ProjectTabPageContract.View {
 
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
@@ -36,14 +36,16 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
     RecyclerView rv;
 
     private ProjectTabPageAdapter adapter;
-    private int page = 1;
+    private int page;
 
     private int currentCid;
+    private String currentTag;
 
-    public static ProjectTabPageMvpFragment newInstance(int cid) {
+    public static ProjectTabPageFragment newInstance(int cid, String tag) {
         Bundle args = new Bundle();
-        args.putInt("cid", cid);
-        ProjectTabPageMvpFragment fragment = new ProjectTabPageMvpFragment();
+        args.putInt(ProjectFragment.ARGS_CID, cid);
+        args.putString(ProjectFragment.ARGS_TAG, tag);
+        ProjectTabPageFragment fragment = new ProjectTabPageFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -55,9 +57,7 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
 
     @Override
     protected ProjectTabPagePresenter createPresenter() {
-        ProjectTabPagePresenter presenter = new ProjectTabPagePresenter();
-        presenter.attachView(this);
-        return presenter;
+        return new ProjectTabPagePresenter();
     }
 
     @Override
@@ -90,19 +90,37 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
 
     public void refreshData() {
         clearData();
-        page = 1;
-        presenter.getProject(page, currentCid);
+        resetPage();
+        requestData();
     }
 
     public void loadMoreData() {
         page++;
-        presenter.getProject(page, currentCid);
+        requestData();
+    }
+
+    private void resetPage() {
+        if (ProjectFragment.TAG_PROJECT.equals(currentTag)) {
+            page = 1;
+        } else if (ProjectFragment.TAG_TREE.equals(currentTag)) {
+            page = 0;
+        }
+    }
+
+    public void requestData() {
+        if (ProjectFragment.TAG_PROJECT.equals(currentTag)) {
+            presenter.getProject(page, currentCid);
+        } else if (ProjectFragment.TAG_TREE.equals(currentTag)) {
+            presenter.getArticle(page, currentCid);
+        }
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        currentCid = arguments.getInt("cid");
+        currentCid = arguments.getInt(ProjectFragment.ARGS_CID);
+        currentTag = arguments.getString(ProjectFragment.ARGS_TAG);
+        resetPage();
     }
 
     @Override

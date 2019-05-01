@@ -4,7 +4,6 @@ import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.Navigation;
-import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 
@@ -28,11 +27,14 @@ public interface WanAndroidService {
     @GET("article/list/{page}/json")
     Observable<BaseResponse<ArticleList>> requestArticleList(@Path("page") int page);
 
+    @GET("article/list/{page}/json")
+    Observable<BaseResponse<ArticleList>> requestArticleListWithCid(@Path("page") int page, @Query("cid") int cid);
+
     @GET("project/tree/json")
-    Observable<BaseResponse<List<ProjectTitle>>> requestProjectTitle();
+    Observable<BaseResponse<List<TreeData>>> requestProjectDatas();
 
     @GET("project/list/{page}/json")
-    Observable<BaseResponse<ArticleList>> requestArticleWithCidList(@Path("page") int page, @Query("cid") int cid);
+    Observable<BaseResponse<ArticleList>> requestProjectArticleWithCid(@Path("page") int page, @Query("cid") int cid);
 
     @GET("navi/json")
     Observable<BaseResponse<List<Navigation>>> requestNavigation();

@@ -1,6 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.project;
 
-import com.lyz.lyzwanandroid.data.model.ProjectTitle;
+import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.base.mvp.IPresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public interface ProjectContract {
     interface View extends IView {
 
-        void setTitleData(List<ProjectTitle> data);
+        void setTreeTitleData(List<TreeData> data);
 
     }
 

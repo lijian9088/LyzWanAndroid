@@ -1,7 +1,7 @@
 package com.lyz.lyzwanandroid.ui.module.project;
 
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
-import com.lyz.lyzwanandroid.data.model.ProjectTitle;
+import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.NetworkManager;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 
@@ -23,34 +23,36 @@ public class ProjectPresenter extends BasePresenter<ProjectContract.View> implem
      */
     private CompositeDisposable disposable = new CompositeDisposable();
 
+    Observer<BaseResponse<List<TreeData>>> observer = new Observer<BaseResponse<List<TreeData>>>() {
+        @Override
+        public void onSubscribe(Disposable d) {
+            disposable.add(d);
+        }
+
+        @Override
+        public void onNext(BaseResponse<List<TreeData>> listBaseResponse) {
+            if (listBaseResponse.errorCode == 0) {
+                List<TreeData> data = listBaseResponse.data;
+                view.setTreeTitleData(data);
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+    };
+
     @Override
     public void getProjectTitle() {
         NetworkManager.getInstance()
-                .getProjectTitle()
-                .subscribe(new Observer<BaseResponse<List<ProjectTitle>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposable.add(d);
-                    }
-
-                    @Override
-                    public void onNext(BaseResponse<List<ProjectTitle>> listBaseResponse) {
-                        if (listBaseResponse.errorCode == 0) {
-                            List<ProjectTitle> data = listBaseResponse.data;
-                            view.setTitleData(data);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+                .getProjectDatas()
+                .subscribe(observer);
     }
 
     @Override
