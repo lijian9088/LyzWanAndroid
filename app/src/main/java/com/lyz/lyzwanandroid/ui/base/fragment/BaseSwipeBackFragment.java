@@ -8,7 +8,6 @@ import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
  * @Describe
  */
 public class BaseSwipeBackFragment extends SwipeBackFragment {
-
     /**
      * 是否开启滑动关闭
      *

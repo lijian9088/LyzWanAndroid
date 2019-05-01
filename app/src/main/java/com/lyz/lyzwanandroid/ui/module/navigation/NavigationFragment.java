@@ -25,7 +25,7 @@ import butterknife.BindView;
  * @create 2019/03/19
  * @Describe
  */
-public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> implements NavigationContract.View {
 
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
@@ -38,11 +38,11 @@ public class NavigationMvpFragment extends BaseMvpFragment<NavigationPresenter> 
     private TagRvAdapter tagRvAdapter;
 
 
-    public static NavigationMvpFragment newInstance() {
+    public static NavigationFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        NavigationMvpFragment fragment = new NavigationMvpFragment();
+        NavigationFragment fragment = new NavigationFragment();
         fragment.setArguments(args);
         return fragment;
     }

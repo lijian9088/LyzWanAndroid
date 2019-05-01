@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.ToastUtils;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
+import com.lyz.lyzwanandroid.ui.module.main.MainFragment;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.yokeyword.fragmentation.ISupportFragment;
+import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * @author liyanze
@@ -34,16 +37,29 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseSwipe
             presenter.attachView(this);
         }
         initView(view);
-        initData(savedInstanceState);
+        if (canSwipeBack()) {
+            return attachToSwipeBack(view);
+        }
         return view;
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        //一行代码解决fragment重叠问题
-        outState.putParcelable("android:support:fragments", null);
+    protected abstract int getLayout();
+
+    protected abstract T createPresenter();
+
+    protected abstract void initView(View view);
+
+    protected boolean canSwipeBack() {
+        return false;
     }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initData(savedInstanceState);
+    }
+
+    protected abstract void initData(Bundle savedInstanceState);
 
     @Override
     public void onDestroyView() {
@@ -57,13 +73,14 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseSwipe
         }
     }
 
-    protected abstract int getLayout();
-
-    protected abstract T createPresenter();
-
-    protected abstract void initView(View view);
-
-    protected abstract void initData(Bundle savedInstanceState);
+    public void startViaParent(ISupportFragment toFragment) {
+        Fragment parentFragment = getParentFragment();
+        if (parentFragment != null) {
+            ((SupportFragment) parentFragment).start(toFragment);
+        }else if(this instanceof MainFragment){
+            this.start(toFragment);
+        }
+    }
 
     @Override
     public void showToast(String msg) {

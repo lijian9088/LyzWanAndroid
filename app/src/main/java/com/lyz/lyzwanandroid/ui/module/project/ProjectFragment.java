@@ -16,7 +16,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ProjectMvpFragment extends BaseMvpFragment<ProjectPresenter> implements ProjectContract.View {
+public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implements ProjectContract.View {
 
     @BindView(R.id.tabLayout)
     TabLayout tabLayout;
@@ -25,11 +25,11 @@ public class ProjectMvpFragment extends BaseMvpFragment<ProjectPresenter> implem
     ViewPager viewPager;
     private ProjectTabPageFragmentAdapter fragmentAdapter;
 
-    public static ProjectMvpFragment newInstance() {
+    public static ProjectFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        ProjectMvpFragment fragment = new ProjectMvpFragment();
+        ProjectFragment fragment = new ProjectFragment();
         fragment.setArguments(args);
         return fragment;
     }

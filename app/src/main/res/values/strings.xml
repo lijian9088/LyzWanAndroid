@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LyzWanAndroid</string>
+    <!--<string name="app_name">LyzWanAndroid</string>-->
 
     <string name="nav_home">Home</string>
     <string name="nav_projects">Projects</string>

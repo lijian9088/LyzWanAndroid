@@ -126,9 +126,7 @@ public class HomePresenter extends BasePresenter<HomeContract.View> implements H
                                 List<WanAndroidData> datas = ((ArticleList) baseResponse.data).datas;
                                 view.setItemData(datas);
                             }
-
                         }
-
                         view.hideLoading(isSuccess);
                     }
 

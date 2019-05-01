@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.widget.MarkdownView;
+import com.orhanobut.logger.Logger;
 
 import butterknife.BindView;
 
@@ -25,9 +25,6 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
     @BindView(R.id.markdownView)
     MarkdownView markdownView;
 
-    @BindView(R.id.tv)
-    TextView tv;
-
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
@@ -39,7 +36,6 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
         return fragment;
     }
 
-
     @Override
     protected int getLayout() {
         return R.layout.activity_web;
@@ -47,27 +43,28 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
 
     @Override
     protected WebPresenter createPresenter() {
-        WebPresenter presenter = new WebPresenter();
-        presenter.attachView(this);
-        return presenter;
-
+        return new WebPresenter();
     }
 
     @Override
     protected void initView(View view) {
-        enableSwipeBackLeft(true);
         markdownView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                tv.setVisibility(View.VISIBLE);
+                if (markdownView == null) {
+                    return;
+                }
                 progressBar.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                tv.setVisibility(View.GONE);
+                if (markdownView == null) {
+                    Logger.d("markdownView为空");
+                    return;
+                }
                 progressBar.setVisibility(View.GONE);
             }
         });
@@ -75,9 +72,19 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         Bundle arguments = getArguments();
         String url = arguments.getString("url");
         presenter.loadUrl(url);
+    }
+
+    @Override
+    protected boolean canSwipeBack() {
+        return true;
     }
 
     @Override
@@ -101,11 +108,11 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
         if (markdownView != null) {
             markdownView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
             markdownView.clearHistory();
-
             ((ViewGroup) markdownView.getParent()).removeView(markdownView);
             markdownView.destroy();
             markdownView = null;
         }
         super.onDestroy();
+        Logger.d("web.onDestroy");
     }
 }

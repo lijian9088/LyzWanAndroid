@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.lyz.lyzwanandroid.MainActivity;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.stx.xhb.xbanner.XBanner;
 
 import java.util.List;
@@ -114,7 +116,8 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
                 public void onItemClick(XBanner banner, Object model, View view, int position) {
                     Banner bannerModel = (Banner) model;
                     String url = bannerModel.url;
-                    WebActivity.goActivity(context, url);
+                    MainActivity act = (MainActivity) xBanner.getContext();
+                    act.startChildFragment(WebFragment.newInstance(url));
                 }
             });
         }

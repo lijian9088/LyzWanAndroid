@@ -29,7 +29,7 @@ public class LyzApplication extends Application {
         SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
             @Override
             public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
-                layout.setPrimaryColorsId(R.color.primary, android.R.color.white);//全局设置主题颜色
+                layout.setPrimaryColorsId(R.color.primary, R.color.icons);//全局设置主题颜色
                 return new ClassicsHeader(context);//.setTimeFormat(new DynamicTimeFormat("更新于 %s"));//指定为经典Header，默认是 贝塞尔雷达Header
             }
         });
@@ -59,7 +59,12 @@ public class LyzApplication extends Application {
 //                .tag("My custom tag")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
                 .build();
 
-        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+            @Override
+            public boolean isLoggable(int priority, String tag) {
+                return BuildConfig.LOG_DEBUG;
+            }
+        });
     }
 
     private void initFragmentation() {

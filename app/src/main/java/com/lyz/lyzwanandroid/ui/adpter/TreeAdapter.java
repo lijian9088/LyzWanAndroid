@@ -6,13 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.Utils;
+import com.google.android.flexbox.FlexboxLayout;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.util.List;
 
@@ -40,16 +40,21 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
         List<TreeData> children = treeData.children;
 
         holder.tvTitle.setText(treeData.name);
-        holder.flowLayout.setAdapter(new TagAdapter<TreeData>(children) {
-            @Override
-            public View getView(FlowLayout parent, int position, TreeData treeData) {
-                TextView textView = new TextView(parent.getContext());
-                textView.setTextSize(16);
-                textView.setTextColor(parent.getContext().getResources().getColor(R.color.gray));
-                textView.setText(treeData.name);
-                return textView;
-            }
-        });
+
+        holder.flexboxLayout.removeAllViews();
+        for (int i = 0; i < children.size(); i++) {
+            TreeData data = children.get(i);
+            TextView textView = new TextView(holder.flexboxLayout.getContext());
+            textView.setTextSize(16);
+            textView.setTextColor(holder.flexboxLayout.getContext().getResources().getColor(R.color.gray));
+            textView.setText(data.name);
+            holder.flexboxLayout.addView(textView);
+
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) textView.getLayoutParams();
+            int margin = ConvertUtils.dp2px(5);
+            layoutParams.setMargins(margin, margin, margin, margin);
+            textView.setLayoutParams(layoutParams);
+        }
 
     }
 
@@ -58,8 +63,8 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
         @BindView(R.id.tvTitle)
         TextView tvTitle;
 
-        @BindView(R.id.flowLayout)
-        TagFlowLayout flowLayout;
+        @BindView(R.id.flexBoxLayout)
+        FlexboxLayout flexboxLayout;
 
         public TreeViewHolder(@NonNull View itemView) {
             super(itemView);

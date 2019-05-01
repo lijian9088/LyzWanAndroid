@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.ethanhua.skeleton.Skeleton;
+import com.ethanhua.skeleton.SkeletonScreen;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
@@ -27,7 +29,7 @@ import butterknife.BindView;
 /**
  * @author liyanze
  */
-public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends BaseMvpFragment<HomePresenter> implements HomeContract.View {
 
     @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
@@ -37,10 +39,11 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
 
     private HomeAdapter adapter;
     private int page = 1;
+    private SkeletonScreen skeletonScreen;
 
-    public static HomeMvpFragment newInstance() {
+    public static HomeFragment newInstance() {
         Bundle args = new Bundle();
-        HomeMvpFragment fragment = new HomeMvpFragment();
+        HomeFragment fragment = new HomeFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,9 +55,7 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
 
     @Override
     protected HomePresenter createPresenter() {
-        HomePresenter presenter = new HomePresenter();
-        presenter.attachView(this);
-        return presenter;
+        return new HomePresenter();
     }
 
     @Override
@@ -68,9 +69,7 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
             @Override
             public void onItemClick(int position, WanAndroidData data) {
                 String link = data.link;
-                WebActivity.goActivity(getActivity(), link);
-//                WebFragment fragment = WebFragment.newInstance(link);
-//                start(fragment);
+                startViaParent(WebFragment.newInstance(link));
             }
         });
 
@@ -78,7 +77,7 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 Logger.d("onRefresh");
-                clearData();
+//                clearData();
                 startInitAllData();
             }
         });
@@ -94,11 +93,14 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        showLoading();
+        skeletonScreen = Skeleton.bind(rv)
+                .adapter(adapter)
+                .load(R.layout.item_home_skeleton)
+                .show();
+        startInitAllData();
     }
 
     private void startInitAllData() {
-        showLoading();
         presenter.initAllData();
     }
 
@@ -110,6 +112,7 @@ public class HomeMvpFragment extends BaseMvpFragment<HomePresenter> implements H
     @Override
     public void hideLoading(boolean success) {
         refreshLayout.finishRefresh(success);
+        skeletonScreen.hide();
     }
 
     @Override

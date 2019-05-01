@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
+import com.lyz.lyzwanandroid.MainActivity;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
-import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.lyz.lyzwanandroid.ui.module.main.MainFragment;
+import com.lyz.lyzwanandroid.ui.module.navigation.NavigationFragment;
+import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.lyz.lyzwanandroid.widget.TagTextView;
+import com.orhanobut.logger.Logger;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -62,7 +66,9 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
                 WanAndroidData wanAndroidData = navigation.articles.get(position);
                 String link = wanAndroidData.link;
-                WebActivity.goActivity(view.getContext(), link);
+
+                MainActivity act = (MainActivity) holder.flowLayout.getContext();
+                act.startChildFragment(WebFragment.newInstance(link));
 
                 return true;
             }

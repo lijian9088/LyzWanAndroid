@@ -12,7 +12,7 @@ import com.lyz.lyzwanandroid.ui.adpter.TreeAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageMvpFragment;
-import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -20,7 +20,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements TreeContract.View {
+public class TreeFragment extends BaseMvpFragment<TreePresenter> implements TreeContract.View {
 
     @BindView(R.id.recyclerView)
     RecyclerView rv;
@@ -30,8 +30,8 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
 
     private TreeAdapter treeAdapter;
 
-    public static TreeMvpFragment newInstance() {
-        TreeMvpFragment fragment = new TreeMvpFragment();
+    public static TreeFragment newInstance() {
+        TreeFragment fragment = new TreeFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -66,9 +66,9 @@ public class TreeMvpFragment extends BaseMvpFragment<TreePresenter> implements T
         treeAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<TreeData>() {
             @Override
             public void onItemClick(int position, TreeData data) {
+                Logger.d("onItemClick:" + position);
                 int cid = data.id;
-                ProjectTabPageMvpFragment fragment = ProjectTabPageMvpFragment.newInstance(cid);
-                start(fragment);
+                startViaParent(ProjectTabPageMvpFragment.newInstance(cid));
             }
         });
     }

@@ -1,13 +1,14 @@
 package com.lyz.lyzwanandroid.data.source;
 
+import com.lyz.lyzwanandroid.BuildConfig;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.Navigation;
-import com.lyz.lyzwanandroid.data.model.ProjectList;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.remote.WanAndroidService;
+import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
@@ -28,14 +29,15 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class NetworkManager {
 
     private static final NetworkManager ourInstance = new NetworkManager();
-    private static final String BASE_URL = "http://www.wanandroid.com/";
+    private static final String BASE_URL = BuildConfig.BASE_URL;
     private WanAndroidService service;
 
     private NetworkManager() {
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {
-                System.out.println(String.format("okHttp: %s", message));
+                Logger.t("NetworkManager")
+                        .w(String.format("okHttp: %s", message));
             }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);

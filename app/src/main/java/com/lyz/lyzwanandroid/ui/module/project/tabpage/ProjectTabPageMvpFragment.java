@@ -13,6 +13,7 @@ import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
+import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -69,32 +70,39 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
             @Override
             public void onItemClick(int position, WanAndroidData data) {
                 String link = data.link;
-                WebActivity.goActivity(getActivity(), link);
+                startViaParent(WebFragment.newInstance(link));
             }
         });
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                clearData();
-                page = 1;
-                presenter.getProject(page, currentCid);
+                refreshData();
             }
         });
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                page++;
-                presenter.getProject(page, currentCid);
+                loadMoreData();
             }
         });
+    }
+
+    public void refreshData() {
+        clearData();
+        page = 1;
+        presenter.getProject(page, currentCid);
+    }
+
+    public void loadMoreData() {
+        page++;
+        presenter.getProject(page, currentCid);
     }
 
     @Override
     protected void initData(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         currentCid = arguments.getInt("cid");
-        showLoading();
     }
 
     @Override
@@ -127,4 +135,9 @@ public class ProjectTabPageMvpFragment extends BaseMvpFragment<ProjectTabPagePre
         adapter.clearData();
     }
 
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        refreshData();
+    }
 }
