@@ -71,20 +71,12 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
-    }
-
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
-        Bundle arguments = getArguments();
-        String url = arguments.getString("url");
-        presenter.loadUrl(url);
-    }
-
-    @Override
     protected boolean canSwipeBack() {
         return true;
+    }
+
+    @Override
+    protected void initData(Bundle savedInstanceState) {
     }
 
     @Override
@@ -114,5 +106,13 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
         }
         super.onDestroy();
         Logger.d("web.onDestroy");
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+        Bundle arguments = getArguments();
+        String url = arguments.getString("url");
+        presenter.loadUrl(url);
     }
 }

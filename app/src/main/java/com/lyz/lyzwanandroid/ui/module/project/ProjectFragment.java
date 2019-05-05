@@ -36,6 +36,8 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implement
 
     private ProjectTabPageFragmentAdapter fragmentAdapter;
     private int currentCid;
+    private String tag;
+    private TreeData treeData;
 
     public static ProjectFragment newInstance() {
 
@@ -71,6 +73,8 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implement
     protected void initView(View view) {
         Bundle bundle = getArguments();
         currentCid = bundle.getInt(ARGS_CID, -1);
+        tag = bundle.getString(ARGS_TAG);
+        treeData = bundle.getParcelable(ARGS_TREEDATA);
     }
 
     @Override
@@ -80,9 +84,12 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implement
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        String tag = bundle.getString(ARGS_TAG);
-        TreeData treeData = bundle.getParcelable(ARGS_TREEDATA);
+
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
         if (currentCid == -1) {
             presenter.getProjectTitle();
         } else {
