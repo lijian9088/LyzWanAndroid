@@ -7,7 +7,7 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     android:textColor="@android:color/black"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/selector_btn"
     android:textSize="18sp">
 
 </TextView>

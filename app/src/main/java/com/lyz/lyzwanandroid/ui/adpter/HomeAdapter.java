@@ -16,7 +16,6 @@ import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
-import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.stx.xhb.xbanner.XBanner;
 
@@ -156,7 +155,7 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
         @Override
         public void onItemClick(View view, int position) {
             if (listener != null) {
-                listener.onItemClick(position, data.get(position - 1));
+                listener.onItemClick(position, data.get(position - 1), view);
             }
         }
     }

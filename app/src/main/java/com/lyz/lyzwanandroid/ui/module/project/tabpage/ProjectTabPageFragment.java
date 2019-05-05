@@ -68,7 +68,7 @@ public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresen
         rv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<WanAndroidData>() {
             @Override
-            public void onItemClick(int position, WanAndroidData data) {
+            public void onItemClick(int position, WanAndroidData data, View view) {
                 String link = data.link;
                 startViaParent(WebFragment.newInstance(link));
             }

@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:paddingLeft="16dp"
     android:paddingTop="8dp"
-    android:background="?attr/selectableItemBackground"
+    android:background="@drawable/selector_btn"
     android:paddingRight="16dp"
     android:paddingBottom="8dp">
 

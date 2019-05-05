@@ -15,7 +15,6 @@ import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.adpter.HomeAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
-import com.lyz.lyzwanandroid.ui.module.web.WebActivity;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
 import com.orhanobut.logger.Logger;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -67,7 +66,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         rv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<WanAndroidData>() {
             @Override
-            public void onItemClick(int position, WanAndroidData data) {
+            public void onItemClick(int position, WanAndroidData data, View view) {
                 String link = data.link;
                 startViaParent(WebFragment.newInstance(link));
             }

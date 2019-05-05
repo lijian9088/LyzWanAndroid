@@ -14,5 +14,6 @@
     <color name="white">#ffffff</color>
     <color name="white_50">#80ffffff</color>
     <color name="gray">#ccc</color>
+    <color name="gray_50">#80cccccc</color>
     <color name="black">#000</color>
 </resources>

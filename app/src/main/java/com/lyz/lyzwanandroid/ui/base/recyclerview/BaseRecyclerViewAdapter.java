@@ -64,11 +64,11 @@ public abstract class BaseRecyclerViewAdapter<D, VH extends BaseViewHolder> exte
     @Override
     public void onItemClick(View view, int position) {
         if (listener != null) {
-            listener.onItemClick(position, data.get(position));
+            listener.onItemClick(position, data.get(position), view);
         }
     }
 
     public interface OnItemClickListener<D> {
-        void onItemClick(int position, D data);
+        void onItemClick(int position, D data, View view);
     }
 }

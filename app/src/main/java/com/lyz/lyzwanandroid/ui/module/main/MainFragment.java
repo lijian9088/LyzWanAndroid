@@ -3,6 +3,9 @@ package com.lyz.lyzwanandroid.ui.module.main;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -29,8 +32,12 @@ public class MainFragment extends BaseMvpFragment<MainPresenter> {
     @BindView(R.id.navigation)
     BottomNavigationView bottomNavigationView;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+
     int currentIndex = 0;
     private SupportFragment[] mFragments = new SupportFragment[5];
+    private ActionBar supportActionBar;
 
     public static MainFragment newInstance() {
 
@@ -53,7 +60,61 @@ public class MainFragment extends BaseMvpFragment<MainPresenter> {
 
     @Override
     protected void initView(View view) {
+        setupToolbar();
         setupNav();
+    }
+
+    private void setupToolbar() {
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+        activity.setSupportActionBar(toolbar);
+        supportActionBar = activity.getSupportActionBar();
+        setToolbarTitle("Home");
+    }
+
+    private void setupNav() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int index;
+                switch (menuItem.getItemId()) {
+                    case R.id.navHome:
+                        index = 0;
+                        break;
+                    case R.id.navProjects:
+                        index = 1;
+                        break;
+                    case R.id.navTree:
+                        index = 2;
+//                        return true;
+                        break;
+                    case R.id.navNavigation:
+                        index = 3;
+                        break;
+                    case R.id.navUser:
+                        index = 4;
+                        break;
+                    default:
+                        index = 0;
+                        break;
+                }
+                selectFragment(index);
+                currentIndex = index;
+                setToolbarTitle(menuItem.getTitle().toString());
+                return true;
+            }
+        });
+
+        NavigationUtils.disableShiftMode(bottomNavigationView);
+    }
+
+    private void setToolbarTitle(String title) {
+        supportActionBar.setTitle(title);
+    }
+
+    private void selectFragment(int index) {
+        ISupportFragment hideFragment = mFragments[currentIndex];
+        ISupportFragment showFragment = mFragments[index];
+        showHideFragment(showFragment, hideFragment);
     }
 
     @Override
@@ -82,47 +143,6 @@ public class MainFragment extends BaseMvpFragment<MainPresenter> {
             mFragments[3] = findChildFragment(NavigationFragment.class);
             mFragments[4] = findChildFragment(UserFragment.class);
         }
-    }
-
-    private void setupNav() {
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.navHome:
-                        selectFragment(0);
-                        currentIndex = 0;
-                        return true;
-                    case R.id.navProjects:
-                        selectFragment(1);
-                        currentIndex = 1;
-                        return true;
-                    case R.id.navTree:
-                        selectFragment(2);
-                        currentIndex = 2;
-                        return true;
-                    case R.id.navNavigation:
-                        selectFragment(3);
-                        currentIndex = 3;
-                        return true;
-                    case R.id.navUser:
-                        selectFragment(4);
-                        currentIndex = 4;
-                        return true;
-                    default:
-                        selectFragment(0);
-                        return true;
-                }
-            }
-        });
-
-        NavigationUtils.disableShiftMode(bottomNavigationView);
-    }
-
-    private void selectFragment(int index) {
-        ISupportFragment hideFragment = mFragments[currentIndex];
-        ISupportFragment showFragment = mFragments[index];
-        showHideFragment(showFragment, hideFragment);
     }
 
 }

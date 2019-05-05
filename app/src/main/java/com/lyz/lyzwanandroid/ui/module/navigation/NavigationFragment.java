@@ -86,7 +86,7 @@ public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> imp
         rvTab.setAdapter(tabAdapter);
         tabAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<Navigation>() {
             @Override
-            public void onItemClick(int position, Navigation data) {
+            public void onItemClick(int position, Navigation data, View view) {
                 Logger.d("position:" + position);
                 if (rvTag != null) {
                     rvTag.smoothScrollToPosition(position);

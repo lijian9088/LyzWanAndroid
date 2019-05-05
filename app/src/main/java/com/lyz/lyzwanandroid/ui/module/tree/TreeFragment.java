@@ -67,7 +67,7 @@ public class TreeFragment extends BaseMvpFragment<TreePresenter> implements Tree
 
         treeAdapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<TreeData>() {
             @Override
-            public void onItemClick(int position, TreeData data) {
+            public void onItemClick(int position, TreeData data, View view) {
                 Logger.d("onItemClick:" + position);
                 int cid = data.id;
                 Logger.d("cid:" + cid);

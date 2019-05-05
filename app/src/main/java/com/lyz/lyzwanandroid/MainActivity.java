@@ -21,6 +21,7 @@ public class MainActivity extends BaseMvpActivity {
 
     @Override
     protected void initView() {
+        getWindow().setBackgroundDrawable(null);
         if (findFragment(MainFragment.class) == null) {
             loadRootFragment(R.id.container, MainFragment.newInstance());
         }
