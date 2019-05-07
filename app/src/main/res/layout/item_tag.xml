@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="@android:color/black"
+        android:textColor="@color/primary_text"
         android:textSize="16sp" />
 
     <com.zhy.view.flowlayout.TagFlowLayout
@@ -20,7 +20,7 @@
         app:max_select="-1" />
 
     <!--<com.google.android.flexbox.FlexboxLayout-->
-    <!--android:id="@+id/flexboxLayout"-->
+    <!--android:id="@+id/flexBoxLayout"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
     <!--app:flexDirection="row"-->

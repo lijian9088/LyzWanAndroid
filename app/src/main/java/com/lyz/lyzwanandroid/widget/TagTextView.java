@@ -32,7 +32,7 @@ public class TagTextView extends android.support.v7.widget.AppCompatTextView {
         setBackgroundDrawable(getResources().getDrawable(R.drawable.tag_selector));
         setGravity(TEXT_ALIGNMENT_CENTER);
         setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
-        setTextColor(Color.BLACK);
+        setTextColor(getResources().getColor(R.color.primary_text));
         setPadding(padding, padding, padding, padding);
     }
 

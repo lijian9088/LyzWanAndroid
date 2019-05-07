@@ -93,7 +93,9 @@ public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> imp
                 }
             }
         });
-        rvTab.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        decoration.setDrawable(getResources().getDrawable(R.drawable.decoration));
+        rvTab.addItemDecoration(decoration);
     }
 
     private void initRvTag() {

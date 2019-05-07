@@ -63,7 +63,9 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeAdapter();
         rv.setAdapter(adapter);
-        rv.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+        DividerItemDecoration decoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        decoration.setDrawable(getResources().getDrawable(R.drawable.decoration));
+        rv.addItemDecoration(decoration);
         adapter.setOnItemClickListener(new BaseRecyclerViewAdapter.OnItemClickListener<WanAndroidData>() {
             @Override
             public void onItemClick(int position, WanAndroidData data, View view) {

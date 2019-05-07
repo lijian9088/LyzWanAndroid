@@ -9,6 +9,7 @@ import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import skin.support.SkinCompatManager;
 
 /**
  * @author liyanze
@@ -63,8 +64,12 @@ public class UserFragment extends BaseMvpFragment<UserPresenter> implements User
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnUser:
+                //后缀加载
+                SkinCompatManager.getInstance().loadSkin("night", SkinCompatManager.SKIN_LOADER_STRATEGY_BUILD_IN);
                 break;
             case R.id.btnSetting:
+                //后缀加载
+                SkinCompatManager.getInstance().restoreDefaultTheme();
                 break;
             default:
                 break;

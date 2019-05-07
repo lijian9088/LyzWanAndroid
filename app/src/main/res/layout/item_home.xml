@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="chapter"
-        android:textColor="@android:color/darker_gray" />
+        android:textColor="@color/gray" />
 
     <TextView
         android:layout_marginTop="8dp"
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="title"
         android:textStyle="bold"
-        android:textColor="@android:color/black"
+        android:textColor="@color/primary_text"
         android:lineSpacingExtra="4dp"
         android:textSize="15sp" />
 
@@ -38,20 +38,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="author"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/gray" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="・"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/gray" />
 
         <TextView
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="date"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/gray" />
 
     </LinearLayout>
 

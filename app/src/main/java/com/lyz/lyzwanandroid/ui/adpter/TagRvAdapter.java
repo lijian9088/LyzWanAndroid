@@ -1,24 +1,21 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.flexbox.FlexboxLayout;
 import com.lyz.lyzwanandroid.MainActivity;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
-import com.lyz.lyzwanandroid.ui.module.main.MainFragment;
-import com.lyz.lyzwanandroid.ui.module.navigation.NavigationFragment;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
-import com.lyz.lyzwanandroid.widget.TagTextView;
-import com.orhanobut.logger.Logger;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -54,8 +51,18 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
             @Override
             public View getView(FlowLayout parent, int position, WanAndroidData wanAndroidData) {
-                TagTextView textView = TagTextView.newInstance(parent.getContext());
+//                TagTextView textView = TagTextView.newInstance(parent.getContext());
+                TextView textView = new TextView(parent.getContext());
                 textView.setText(wanAndroidData.title);
+                Resources resources = textView.getContext().getResources();
+//                textView.setTextColor(resources.getColor(R.color.primary_text));
+
+//                textView.setBackgroundResource(R.drawable.tag_selector);
+                textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+                textView.setTextColor(resources.getColor(R.color.primary_text));
+                textView.setPadding(10, 10, 10, 10);
+
                 return textView;
             }
         });
@@ -81,7 +88,10 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 //        for (int i = 0; i < articles.size(); i++) {
 //            WanAndroidData wanAndroidData = articles.get(i);
 //            TagTextView textView = TagTextView.newInstance(flexboxLayout.getContext());
+////            TextView textView = new TextView(holder.flexboxLayout.getContext());
 //            textView.setText(wanAndroidData.title);
+//            Resources resources = textView.getContext().getResources();
+//            textView.setTextColor(resources.getColor(R.color.primary_text));
 //            flexboxLayout.addView(textView);
 //        }
 
@@ -91,13 +101,13 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
         public TextView tvTitle;
         public TagFlowLayout flowLayout;
-        public FlexboxLayout flexboxLayout;
+//        public FlexboxLayout flexboxLayout;
 
         public TagHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             flowLayout = itemView.findViewById(R.id.flowLayout);
-//            flexboxLayout = itemView.findViewById(R.id.flexboxLayout);
+//            flexboxLayout = itemView.findViewById(R.id.flexBoxLayout);
         }
 
     }
