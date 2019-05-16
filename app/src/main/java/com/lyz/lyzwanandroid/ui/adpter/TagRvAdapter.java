@@ -16,6 +16,7 @@ import com.lyz.lyzwanandroid.data.model.WanAndroidData;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
+import com.lyz.lyzwanandroid.widget.TagTextView;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -51,18 +52,11 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
             @Override
             public View getView(FlowLayout parent, int position, WanAndroidData wanAndroidData) {
-//                TagTextView textView = TagTextView.newInstance(parent.getContext());
-                TextView textView = new TextView(parent.getContext());
+                TagTextView textView = TagTextView.newInstance(parent.getContext());
+//                TextView textView = new TextView(parent.getContext());
                 textView.setText(wanAndroidData.title);
                 Resources resources = textView.getContext().getResources();
-//                textView.setTextColor(resources.getColor(R.color.primary_text));
-
-//                textView.setBackgroundResource(R.drawable.tag_selector);
-                textView.setGravity(View.TEXT_ALIGNMENT_CENTER);
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
                 textView.setTextColor(resources.getColor(R.color.primary_text));
-                textView.setPadding(10, 10, 10, 10);
-
                 return textView;
             }
         });

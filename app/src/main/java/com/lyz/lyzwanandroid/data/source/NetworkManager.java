@@ -7,7 +7,6 @@ import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.remote.WanAndroidService;
-import com.orhanobut.logger.Logger;
 
 import java.util.List;
 

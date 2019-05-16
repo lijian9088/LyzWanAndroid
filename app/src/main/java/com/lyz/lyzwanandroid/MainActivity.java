@@ -1,5 +1,7 @@
 package com.lyz.lyzwanandroid;
 
+import android.view.KeyEvent;
+
 import com.lyz.lyzwanandroid.ui.base.activity.BaseMvpActivity;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.module.main.MainFragment;
@@ -53,4 +55,8 @@ public class MainActivity extends BaseMvpActivity {
         findFragment(MainFragment.class).start(toFragment);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        return super.onKeyDown(keyCode, event);
+    }
 }

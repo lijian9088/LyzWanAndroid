@@ -1,7 +1,6 @@
 package com.lyz.lyzwanandroid.widget;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -39,5 +38,4 @@ public class TagTextView extends android.support.v7.widget.AppCompatTextView {
     public static TagTextView newInstance(Context context) {
         return new TagTextView(context);
     }
-
 }
