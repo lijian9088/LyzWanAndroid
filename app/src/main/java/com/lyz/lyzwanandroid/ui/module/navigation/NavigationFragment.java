@@ -108,6 +108,20 @@ public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> imp
             }
         };
 
+//        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext()) {
+//            @Override
+//            public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state, int position) {
+//                LinearSmoothScroller scroller = new LinearSmoothScroller(recyclerView.getContext()) {
+//                    @Override
+//                    protected float calculateSpeedPerPixel(DisplayMetrics displayMetrics) {
+//                        return 0.05f;
+//                    }
+//                };
+//                scroller.setTargetPosition(position);
+//                startSmoothScroll(scroller);
+//            }
+//        };
+
         rvTag.setLayoutManager(layoutManager);
         rvTag.setHasFixedSize(true);
         tagRvAdapter = new TagRvAdapter();
