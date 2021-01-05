@@ -1,13 +1,13 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
 import android.content.res.Resources;
-import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.lyz.lyzwanandroid.MainActivity;
 import com.lyz.lyzwanandroid.R;

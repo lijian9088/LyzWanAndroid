@@ -1,12 +1,13 @@
 package com.lyz.lyzwanandroid.ui.module.project;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageFragmentAdapter;

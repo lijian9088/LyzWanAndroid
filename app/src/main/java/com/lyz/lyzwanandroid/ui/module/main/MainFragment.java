@@ -1,14 +1,15 @@
 package com.lyz.lyzwanandroid.ui.module.main;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.home.HomeFragment;
@@ -104,7 +105,7 @@ public class MainFragment extends BaseMvpFragment<MainPresenter> {
             }
         });
 
-        NavigationUtils.disableShiftMode(bottomNavigationView);
+//        NavigationUtils.disableShiftMode(bottomNavigationView);
     }
 
     private void setToolbarTitle(String title) {

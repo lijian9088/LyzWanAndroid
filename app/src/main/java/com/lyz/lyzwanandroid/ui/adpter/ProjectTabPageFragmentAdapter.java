@@ -1,9 +1,10 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageFragment;

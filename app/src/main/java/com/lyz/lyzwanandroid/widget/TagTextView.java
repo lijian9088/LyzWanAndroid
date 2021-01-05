@@ -1,9 +1,11 @@
 package com.lyz.lyzwanandroid.widget;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.lyz.lyzwanandroid.R;
 
@@ -13,7 +15,7 @@ import com.lyz.lyzwanandroid.R;
  * @create 2019/03/19
  * @Describe
  */
-public class TagTextView extends android.support.v7.widget.AppCompatTextView {
+public class TagTextView extends AppCompatTextView {
 
     private float textSize = 16f;
     private int padding = 10;

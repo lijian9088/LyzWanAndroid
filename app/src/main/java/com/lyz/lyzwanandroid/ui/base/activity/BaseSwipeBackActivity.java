@@ -1,7 +1,8 @@
 package com.lyz.lyzwanandroid.ui.base.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 

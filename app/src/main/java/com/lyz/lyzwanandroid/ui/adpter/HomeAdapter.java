@@ -1,12 +1,13 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -14,6 +15,8 @@ import com.lyz.lyzwanandroid.MainActivity;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
+import com.lyz.lyzwanandroid.databinding.ItemHomeBinding;
+import com.lyz.lyzwanandroid.databinding.ItemHomeHeaderBinding;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
@@ -43,20 +46,32 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
     @NonNull
     @Override
     public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        BaseViewHolder viewHolder;
-        switch (viewType) {
-            case VIEW_TYPE_HEADER:
-                viewHolder = new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home_header, viewGroup, false));
-                break;
-            case VIEW_TYPE_ITEM:
-                viewHolder = new ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home, viewGroup, false));
-                break;
-            default:
-                viewHolder = new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home, viewGroup, false));
-                break;
+//        BaseViewHolder viewHolder;
+//        switch (viewType) {
+//            case VIEW_TYPE_HEADER:
+//                viewHolder = new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home_header, viewGroup, false));
+//                break;
+//            case VIEW_TYPE_ITEM:
+//                viewHolder = new ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home, viewGroup, false));
+//                break;
+//            default:
+//                viewHolder = new HeaderViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_home, viewGroup, false));
+//                break;
+//        }
+//
+//        return viewHolder;
+
+        if(viewType == VIEW_TYPE_HEADER){
+            ItemHomeHeaderBinding binding = ItemHomeHeaderBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+            return new HeaderViewHolder(binding);
         }
 
-        return viewHolder;
+        if(viewType == VIEW_TYPE_ITEM){
+            ItemHomeBinding binding = ItemHomeBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+            return new ItemViewHolder(binding);
+        }
+
+        return null;
     }
 
     @Override

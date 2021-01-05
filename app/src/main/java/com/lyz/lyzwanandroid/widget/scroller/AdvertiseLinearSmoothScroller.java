@@ -1,8 +1,9 @@
 package com.lyz.lyzwanandroid.widget.scroller;
 
 import android.content.Context;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.util.DisplayMetrics;
+
+import androidx.recyclerview.widget.LinearSmoothScroller;
 
 /**
  * @author liyanze
