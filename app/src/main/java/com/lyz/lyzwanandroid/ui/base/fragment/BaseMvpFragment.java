@@ -1,53 +1,52 @@
 package com.lyz.lyzwanandroid.ui.base.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.viewbinding.ViewBinding;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 import com.lyz.lyzwanandroid.ui.module.main.MainFragment;
 
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
  * @author liyanze
  */
-public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseSwipeBackFragment implements IView {
+public abstract class BaseMvpFragment<T extends BasePresenter,V extends ViewBinding> extends BaseSwipeBackFragment implements IView {
 
     protected T presenter;
-
-    private Unbinder bind;
+    protected V viewBinding;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(getLayout(), container, false);
-        bind = ButterKnife.bind(this, view);
+        viewBinding = createViewBinding(inflater, container);
+        View view = viewBinding.getRoot();
         if (presenter == null) {
             presenter = createPresenter();
             presenter.attachView(this);
         }
-        initView(view);
+        initView();
         if (canSwipeBack()) {
             return attachToSwipeBack(view);
         }
         return view;
     }
 
-    protected abstract int getLayout();
+    protected abstract V createViewBinding(LayoutInflater inflater, ViewGroup container);
 
     protected abstract T createPresenter();
 
-    protected abstract void initView(View view);
+    protected abstract void initView();
 
     protected boolean canSwipeBack() {
         return false;
@@ -64,9 +63,6 @@ public abstract class BaseMvpFragment<T extends BasePresenter> extends BaseSwipe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if (bind != null) {
-            bind.unbind();
-        }
         if (presenter != null) {
             presenter.detachView();
             presenter = null;

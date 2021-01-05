@@ -1,6 +1,5 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,8 +23,6 @@ import com.stx.xhb.xbanner.XBanner;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * @author liyanze
  * @create 2019/02/11
@@ -45,7 +42,7 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
 
     @NonNull
     @Override
-    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+    public BaseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //        BaseViewHolder viewHolder;
 //        switch (viewType) {
 //            case VIEW_TYPE_HEADER:
@@ -61,13 +58,13 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
 //
 //        return viewHolder;
 
-        if(viewType == VIEW_TYPE_HEADER){
-            ItemHomeHeaderBinding binding = ItemHomeHeaderBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+        if (viewType == VIEW_TYPE_HEADER) {
+            ItemHomeHeaderBinding binding = ItemHomeHeaderBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new HeaderViewHolder(binding);
         }
 
-        if(viewType == VIEW_TYPE_ITEM){
-            ItemHomeBinding binding = ItemHomeBinding.inflate(LayoutInflater.from(viewGroup.getContext()), viewGroup, false);
+        if (viewType == VIEW_TYPE_ITEM) {
+            ItemHomeBinding binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new ItemViewHolder(binding);
         }
 
@@ -100,14 +97,11 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
 
     public class HeaderViewHolder extends BaseViewHolder {
 
-        private final Context context;
-
-        @BindView(R.id.xBanner)
         XBanner xBanner;
 
-        public HeaderViewHolder(@NonNull View itemView) {
-            super(itemView);
-            this.context = itemView.getContext();
+        public HeaderViewHolder(@NonNull ItemHomeHeaderBinding binding) {
+            super(binding);
+            xBanner = binding.xBanner;
         }
 
         @Override
@@ -139,20 +133,17 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
 
     public class ItemViewHolder extends BaseViewHolder implements View.OnClickListener, com.lyz.lyzwanandroid.ui.listener.OnItemClickListener {
 
-        @BindView(R.id.tvChapter)
         TextView tvChapter;
-
-        @BindView(R.id.tvTitle)
         TextView tvTitle;
-
-        @BindView(R.id.tvAuthor)
         TextView tvAuthor;
-
-        @BindView(R.id.tvDate)
         TextView tvDate;
 
-        public ItemViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ItemViewHolder(@NonNull ItemHomeBinding binding) {
+            super(binding);
+            tvChapter = binding.tvChapter;
+            tvTitle = binding.tvTitle;
+            tvAuthor = binding.tvAuthor;
+            tvDate = binding.tvDate;
             itemView.setOnClickListener(this);
             setOnItemClickListener(this);
         }
@@ -165,7 +156,6 @@ public class HomeAdapter extends BaseRecyclerViewAdapter<WanAndroidData, BaseVie
             tvAuthor.setText(wanAndroidData.author);
             tvDate.setText(wanAndroidData.niceDate);
         }
-
 
         @Override
         public void onItemClick(View view, int position) {

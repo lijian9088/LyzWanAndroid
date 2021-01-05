@@ -1,13 +1,12 @@
 package com.lyz.lyzwanandroid.ui.base.recyclerview;
 
+import android.content.Context;
 import android.view.View;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewbinding.ViewBinding;
 
 import com.lyz.lyzwanandroid.ui.listener.OnItemClickListener;
-
-import butterknife.ButterKnife;
 
 /**
  * @author liyanze
@@ -16,11 +15,12 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    protected final Context context;
     public OnItemClickListener itemClickListener;
 
-    public BaseViewHolder(@NonNull View itemView) {
-        super(itemView);
-        ButterKnife.bind(this, itemView);
+    public BaseViewHolder(ViewBinding binding) {
+        super(binding.getRoot());
+        context = itemView.getContext();
         itemView.setOnClickListener(this);
     }
 

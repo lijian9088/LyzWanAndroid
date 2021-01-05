@@ -13,6 +13,7 @@ import com.lyz.lyzwanandroid.MainActivity;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
+import com.lyz.lyzwanandroid.databinding.ItemTagBinding;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
@@ -32,10 +33,9 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
     @NonNull
     @Override
-    public TagHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int vierType) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tag, viewGroup, false);
-        TagHolder holder = new TagHolder(view);
-        return holder;
+    public TagHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemTagBinding binding = ItemTagBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new TagHolder(binding);
     }
 
     @Override
@@ -97,10 +97,10 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
         public TagFlowLayout flowLayout;
 //        public FlexboxLayout flexboxLayout;
 
-        public TagHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            flowLayout = itemView.findViewById(R.id.flowLayout);
+        public TagHolder(@NonNull ItemTagBinding binding) {
+            super(binding);
+            tvTitle = binding.tvTitle;
+            flowLayout = binding.flowLayout;
 //            flexboxLayout = itemView.findViewById(R.id.flexBoxLayout);
         }
 

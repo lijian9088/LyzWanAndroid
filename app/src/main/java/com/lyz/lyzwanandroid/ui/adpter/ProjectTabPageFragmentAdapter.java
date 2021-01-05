@@ -18,23 +18,23 @@ import java.util.List;
  */
 public class ProjectTabPageFragmentAdapter extends FragmentPagerAdapter {
 
-    private final List<ProjectTabPageFragment> fragmentlist;
+    private final List<ProjectTabPageFragment> fragmentList;
     private final List<TreeData> treeDataList;
 
-    public ProjectTabPageFragmentAdapter(FragmentManager fm, List<ProjectTabPageFragment> fragmentlist, List<TreeData> treeDatas) {
+    public ProjectTabPageFragmentAdapter(FragmentManager fm, List<ProjectTabPageFragment> fragmentList, List<TreeData> treeDatas) {
         super(fm);
-        this.fragmentlist = fragmentlist;
+        this.fragmentList = fragmentList;
         this.treeDataList = treeDatas;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragmentlist.get(position);
+        return fragmentList.get(position);
     }
 
     @Override
     public int getCount() {
-        return fragmentlist != null ? fragmentlist.size() : 0;
+        return fragmentList != null ? fragmentList.size() : 0;
     }
 
     @Nullable

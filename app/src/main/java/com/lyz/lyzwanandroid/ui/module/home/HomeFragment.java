@@ -1,7 +1,9 @@
 package com.lyz.lyzwanandroid.ui.module.home;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -13,6 +15,7 @@ import com.ethanhua.skeleton.SkeletonScreen;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
+import com.lyz.lyzwanandroid.databinding.LayoutSmartrefreshRvBinding;
 import com.lyz.lyzwanandroid.ui.adpter.HomeAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
@@ -24,17 +27,12 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
 
-import butterknife.BindView;
-
 /**
  * @author liyanze
  */
-public class HomeFragment extends BaseMvpFragment<HomePresenter> implements HomeContract.View {
+public class HomeFragment extends BaseMvpFragment<HomePresenter, LayoutSmartrefreshRvBinding> implements HomeContract.View {
 
-    @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
-
-    @BindView(R.id.recyclerView)
     RecyclerView rv;
 
     private HomeAdapter adapter;
@@ -49,8 +47,8 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     }
 
     @Override
-    protected int getLayout() {
-        return R.layout.layout_smartrefresh_rv;
+    protected LayoutSmartrefreshRvBinding createViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return LayoutSmartrefreshRvBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -59,7 +57,9 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter> implements Home
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView() {
+        rv = viewBinding.recyclerView;
+        refreshLayout = viewBinding.refreshLayout;
 
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new HomeAdapter();

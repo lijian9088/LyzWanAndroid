@@ -7,12 +7,10 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
+import com.lyz.lyzwanandroid.databinding.ItemHomeBinding;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
-
-import butterknife.BindView;
 
 /**
  * @author liyanze
@@ -24,8 +22,8 @@ public class ProjectTabPageAdapter extends BaseRecyclerViewAdapter<WanAndroidDat
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home, parent, false);
-        return new ItemViewHolder(view);
+        ItemHomeBinding binding = ItemHomeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new ItemViewHolder(binding);
     }
 
     @Override
@@ -36,20 +34,17 @@ public class ProjectTabPageAdapter extends BaseRecyclerViewAdapter<WanAndroidDat
 
     public class ItemViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.tvChapter)
         TextView tvChapter;
-
-        @BindView(R.id.tvTitle)
         TextView tvTitle;
-
-        @BindView(R.id.tvAuthor)
         TextView tvAuthor;
-
-        @BindView(R.id.tvDate)
         TextView tvDate;
 
-        public ItemViewHolder(View itemView) {
-            super(itemView);
+        public ItemViewHolder(ItemHomeBinding binding) {
+            super(binding);
+            tvChapter = binding.tvChapter;
+            tvTitle = binding.tvTitle;
+            tvAuthor = binding.tvAuthor;
+            tvDate = binding.tvDate;
         }
 
         @Override

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
+import com.lyz.lyzwanandroid.databinding.ItemTabBinding;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 
@@ -22,9 +23,9 @@ public class TabAdapter extends BaseRecyclerViewAdapter<Navigation, TabAdapter.T
 
     @NonNull
     @Override
-    public TabHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_tab, viewGroup, false);
-        return new TabHolder(view);
+    public TabHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ItemTabBinding binding = ItemTabBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new TabHolder(binding);
     }
 
     @Override
@@ -37,13 +38,13 @@ public class TabAdapter extends BaseRecyclerViewAdapter<Navigation, TabAdapter.T
         }
     }
 
-    public class TabHolder extends BaseViewHolder {
+    public static class TabHolder extends BaseViewHolder {
 
         private final TextView tv;
 
-        public TabHolder(@NonNull View itemView) {
-            super(itemView);
-            tv = itemView.findViewById(R.id.tv);
+        public TabHolder(@NonNull ItemTabBinding binding) {
+            super(binding);
+            tv = binding.tv;
         }
 
         public void setText(String text) {

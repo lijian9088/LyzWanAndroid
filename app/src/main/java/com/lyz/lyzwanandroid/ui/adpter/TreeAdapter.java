@@ -1,7 +1,6 @@
 package com.lyz.lyzwanandroid.ui.adpter;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -11,12 +10,11 @@ import com.blankj.utilcode.util.ConvertUtils;
 import com.google.android.flexbox.FlexboxLayout;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
+import com.lyz.lyzwanandroid.databinding.ItemTreeBinding;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseViewHolder;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * @author liyanze
@@ -28,8 +26,8 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
     @NonNull
     @Override
     public TreeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tree, parent, false);
-        return new TreeViewHolder(view);
+        ItemTreeBinding binding = ItemTreeBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new TreeViewHolder(binding);
     }
 
     @Override
@@ -57,16 +55,15 @@ public class TreeAdapter extends BaseRecyclerViewAdapter<TreeData, TreeAdapter.T
 
     }
 
-    class TreeViewHolder extends BaseViewHolder {
+    static class TreeViewHolder extends BaseViewHolder {
 
-        @BindView(R.id.tvTitle)
-        TextView tvTitle;
+        public TextView tvTitle;
+        public FlexboxLayout flexboxLayout;
 
-        @BindView(R.id.flexBoxLayout)
-        FlexboxLayout flexboxLayout;
-
-        public TreeViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public TreeViewHolder(@NonNull ItemTreeBinding binding) {
+            super(binding);
+            tvTitle = binding.tvTitle;
+            flexboxLayout = binding.flexBoxLayout;
         }
     }
 }
