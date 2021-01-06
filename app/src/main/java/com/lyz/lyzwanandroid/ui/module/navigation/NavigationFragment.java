@@ -1,7 +1,9 @@
 package com.lyz.lyzwanandroid.ui.module.navigation;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.Navigation;
+import com.lyz.lyzwanandroid.databinding.FragmentNavigationBinding;
 import com.lyz.lyzwanandroid.ui.adpter.TabAdapter;
 import com.lyz.lyzwanandroid.ui.adpter.TagRvAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
@@ -19,25 +22,20 @@ import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
-import butterknife.BindView;
 
 /**
  * @author liyanze
  * @create 2019/03/19
  * @Describe
  */
-public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> implements NavigationContract.View {
+public class NavigationFragment extends BaseMvpFragment<NavigationPresenter, FragmentNavigationBinding> implements NavigationContract.View {
 
-    @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeLayout;
-    @BindView(R.id.rvTab)
     RecyclerView rvTab;
-    @BindView(R.id.rvTag)
     RecyclerView rvTag;
 
     private TabAdapter tabAdapter;
     private TagRvAdapter tagRvAdapter;
-
 
     public static NavigationFragment newInstance() {
 
@@ -49,8 +47,8 @@ public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> imp
     }
 
     @Override
-    protected int getLayout() {
-        return R.layout.fragment_navigation;
+    protected FragmentNavigationBinding createViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentNavigationBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -61,7 +59,10 @@ public class NavigationFragment extends BaseMvpFragment<NavigationPresenter> imp
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView() {
+        swipeLayout = viewBinding.swipeLayout;
+        rvTab = viewBinding.rvTab;
+        rvTag = viewBinding.rvTag;
 
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

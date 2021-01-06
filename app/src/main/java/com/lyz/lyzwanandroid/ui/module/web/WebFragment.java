@@ -2,30 +2,26 @@ package com.lyz.lyzwanandroid.ui.module.web;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.lyz.lyzwanandroid.R;
+import com.lyz.lyzwanandroid.databinding.ActivityWebBinding;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.widget.MarkdownView;
 import com.orhanobut.logger.Logger;
-
-import butterknife.BindView;
 
 /**
  * @author liyanze
  * @create 2019/04/26
  * @Describe
  */
-public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebContract.View {
+public class WebFragment extends BaseMvpFragment<WebPresenter, ActivityWebBinding> implements WebContract.View {
 
-    @BindView(R.id.markdownView)
     MarkdownView markdownView;
-
-    @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     public static WebFragment newInstance(String url) {
@@ -37,8 +33,8 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
     }
 
     @Override
-    protected int getLayout() {
-        return R.layout.activity_web;
+    protected ActivityWebBinding createViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return ActivityWebBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -47,7 +43,10 @@ public class WebFragment extends BaseMvpFragment<WebPresenter> implements WebCon
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView() {
+        markdownView = viewBinding.markdownView;
+        progressBar = viewBinding.progressBar;
+
         markdownView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {

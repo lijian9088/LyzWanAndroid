@@ -1,8 +1,10 @@
 package com.lyz.lyzwanandroid.ui.module.main;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -11,6 +13,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lyz.lyzwanandroid.R;
+import com.lyz.lyzwanandroid.databinding.FragmentMainBinding;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.home.HomeFragment;
 import com.lyz.lyzwanandroid.ui.module.navigation.NavigationFragment;
@@ -19,7 +22,6 @@ import com.lyz.lyzwanandroid.ui.module.tree.TreeFragment;
 import com.lyz.lyzwanandroid.ui.module.user.UserFragment;
 import com.lyz.lyzwanandroid.utils.NavigationUtils;
 
-import butterknife.BindView;
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -28,12 +30,9 @@ import me.yokeyword.fragmentation.SupportFragment;
  * @create 2019/04/28
  * @Describe
  */
-public class MainFragment extends BaseMvpFragment<MainPresenter> {
+public class MainFragment extends BaseMvpFragment<MainPresenter, FragmentMainBinding> {
 
-    @BindView(R.id.navigation)
     BottomNavigationView bottomNavigationView;
-
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
 
     int currentIndex = 0;
@@ -50,8 +49,8 @@ public class MainFragment extends BaseMvpFragment<MainPresenter> {
     }
 
     @Override
-    protected int getLayout() {
-        return R.layout.fragment_main;
+    protected FragmentMainBinding createViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentMainBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -60,7 +59,9 @@ public class MainFragment extends BaseMvpFragment<MainPresenter> {
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView() {
+        bottomNavigationView = viewBinding.navigation;
+        toolbar = viewBinding.toolbar;
         setupToolbar();
         setupNav();
     }

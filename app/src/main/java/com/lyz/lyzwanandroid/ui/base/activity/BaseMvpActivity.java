@@ -2,13 +2,15 @@ package com.lyz.lyzwanandroid.ui.base.activity;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.SkinAppCompatDelegateImpl;
 
 import com.blankj.utilcode.util.ToastUtils;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
-import butterknife.ButterKnife;
 import me.yokeyword.fragmentation.SupportActivity;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
@@ -24,7 +26,6 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends SupportAc
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutRes());
-        ButterKnife.bind(this);
         initPresenter();
         initView();
         initData();
@@ -74,5 +75,12 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends SupportAc
 
         // 默认竖向(和安卓5.0以上的动画相同)
 //        return super.onCreateFragmentAnimator();
+    }
+
+    @NonNull
+    @Override
+    public AppCompatDelegate getDelegate() {
+//        return super.getDelegate();
+        return SkinAppCompatDelegateImpl.get(this, this);
     }
 }

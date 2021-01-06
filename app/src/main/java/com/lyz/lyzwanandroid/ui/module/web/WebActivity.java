@@ -15,8 +15,6 @@ import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.ui.base.activity.BaseMvpActivity;
 import com.lyz.lyzwanandroid.widget.MarkdownView;
 
-import butterknife.BindView;
-
 /**
  * @author liyanze
  * @create 2019/03/29
@@ -24,13 +22,8 @@ import butterknife.BindView;
  */
 public class WebActivity extends BaseMvpActivity<WebPresenter> implements WebContract.View {
 
-    @BindView(R.id.markdownView)
     MarkdownView markdownView;
-
-    @BindView(R.id.tv)
     TextView tv;
-
-    @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
     public static void goActivity(Context context, String url) {

@@ -91,7 +91,7 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
     }
 
-    public class TagHolder extends BaseViewHolder {
+    public static class TagHolder extends BaseViewHolder {
 
         public TextView tvTitle;
         public TagFlowLayout flowLayout;

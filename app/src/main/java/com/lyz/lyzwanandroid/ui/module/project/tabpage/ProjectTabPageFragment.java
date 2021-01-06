@@ -1,38 +1,37 @@
 package com.lyz.lyzwanandroid.ui.module.project.tabpage;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.WanAndroidData;
+import com.lyz.lyzwanandroid.databinding.LayoutSmartrefreshRvBinding;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.base.recyclerview.BaseRecyclerViewAdapter;
 import com.lyz.lyzwanandroid.ui.module.project.ProjectFragment;
 import com.lyz.lyzwanandroid.ui.module.web.WebFragment;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * @author liyanze
  * @create 2019/02/19
  * @Describe
  */
-public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresenter> implements ProjectTabPageContract.View {
+public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresenter, LayoutSmartrefreshRvBinding> implements ProjectTabPageContract.View {
 
-    @BindView(R.id.refreshLayout)
     RefreshLayout refreshLayout;
-
-    @BindView(R.id.recyclerView)
     RecyclerView rv;
 
     private ProjectTabPageAdapter adapter;
@@ -51,8 +50,8 @@ public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresen
     }
 
     @Override
-    protected int getLayout() {
-        return R.layout.layout_smartrefresh_rv;
+    protected LayoutSmartrefreshRvBinding createViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return LayoutSmartrefreshRvBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -61,7 +60,10 @@ public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresen
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView() {
+        rv = viewBinding.recyclerView;
+        refreshLayout = viewBinding.refreshLayout;
+
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ProjectTabPageAdapter();
         rv.setAdapter(adapter);

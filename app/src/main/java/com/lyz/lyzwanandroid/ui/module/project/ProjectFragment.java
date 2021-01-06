@@ -1,15 +1,16 @@
 package com.lyz.lyzwanandroid.ui.module.project;
 
 import android.os.Bundle;
-import android.view.View;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
-import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.TreeData;
+import com.lyz.lyzwanandroid.databinding.FragmentProjectBinding;
 import com.lyz.lyzwanandroid.ui.adpter.ProjectTabPageFragmentAdapter;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
 import com.lyz.lyzwanandroid.ui.module.main.MainFragment;
@@ -18,9 +19,10 @@ import com.lyz.lyzwanandroid.ui.module.project.tabpage.ProjectTabPageFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-
-public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implements ProjectContract.View {
+/**
+ * @author liyanze
+ */
+public class ProjectFragment extends BaseMvpFragment<ProjectPresenter, FragmentProjectBinding> implements ProjectContract.View {
 
     public static final String TAG_PROJECT = "project";
     public static final String TAG_TREE = "tree";
@@ -29,10 +31,7 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implement
     public static final String ARGS_CID = "cid";
     public static final String ARGS_TREEDATA = "treeData";
 
-    @BindView(R.id.tabLayout)
     TabLayout tabLayout;
-
-    @BindView(R.id.viewPager)
     ViewPager viewPager;
 
     private ProjectTabPageFragmentAdapter fragmentAdapter;
@@ -61,8 +60,8 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implement
     }
 
     @Override
-    protected int getLayout() {
-        return R.layout.fragment_project;
+    protected FragmentProjectBinding createViewBinding(LayoutInflater inflater, ViewGroup container) {
+        return FragmentProjectBinding.inflate(inflater, container, false);
     }
 
     @Override
@@ -71,7 +70,10 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter> implement
     }
 
     @Override
-    protected void initView(View view) {
+    protected void initView() {
+        tabLayout = viewBinding.tabLayout;
+        viewPager = viewBinding.viewPager;
+
         Bundle bundle = getArguments();
         currentCid = bundle.getInt(ARGS_CID, -1);
         tag = bundle.getString(ARGS_TAG);
