@@ -4,11 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatTextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:text="这是Splash页面"
+        android:gravity="center"
+        android:textSize="20sp"
         android:layout_marginBottom="120dp"
-        android:background="#ffaabb"
-        android:scaleType="centerCrop" />
+        android:background="#bbaaff" />
 
 </FrameLayout>
