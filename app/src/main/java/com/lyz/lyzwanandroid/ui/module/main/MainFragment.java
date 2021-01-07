@@ -3,7 +3,6 @@ package com.lyz.lyzwanandroid.ui.module.main;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,7 +19,6 @@ import com.lyz.lyzwanandroid.ui.module.navigation.NavigationFragment;
 import com.lyz.lyzwanandroid.ui.module.project.ProjectFragment;
 import com.lyz.lyzwanandroid.ui.module.tree.TreeFragment;
 import com.lyz.lyzwanandroid.ui.module.user.UserFragment;
-import com.lyz.lyzwanandroid.utils.NavigationUtils;
 
 import me.yokeyword.fragmentation.ISupportFragment;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -61,6 +59,7 @@ public class MainFragment extends BaseMvpFragment<MainPresenter, FragmentMainBin
     @Override
     protected void initView() {
         bottomNavigationView = viewBinding.navigation;
+//        bottomNavigationView.setItemIconTintList(null);
         toolbar = viewBinding.toolbar;
         setupToolbar();
         setupNav();
@@ -79,15 +78,11 @@ public class MainFragment extends BaseMvpFragment<MainPresenter, FragmentMainBin
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 int index;
                 switch (menuItem.getItemId()) {
-                    case R.id.navHome:
-                        index = 0;
-                        break;
                     case R.id.navProjects:
                         index = 1;
                         break;
                     case R.id.navTree:
                         index = 2;
-//                        return true;
                         break;
                     case R.id.navNavigation:
                         index = 3;
@@ -95,6 +90,7 @@ public class MainFragment extends BaseMvpFragment<MainPresenter, FragmentMainBin
                     case R.id.navUser:
                         index = 4;
                         break;
+                    case R.id.navHome:
                     default:
                         index = 0;
                         break;
@@ -106,7 +102,6 @@ public class MainFragment extends BaseMvpFragment<MainPresenter, FragmentMainBin
             }
         });
 
-//        NavigationUtils.disableShiftMode(bottomNavigationView);
     }
 
     private void setToolbarTitle(String title) {

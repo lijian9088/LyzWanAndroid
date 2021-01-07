@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -92,6 +93,12 @@ public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresen
         });
     }
 
+    @Override
+    protected void initData(Bundle savedInstanceState) {
+
+        refreshData();
+    }
+
     public void refreshData() {
         clearData();
         resetPage();
@@ -120,11 +127,11 @@ public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresen
     }
 
     @Override
-    protected void initData(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Bundle arguments = getArguments();
         currentCid = arguments.getInt(ProjectFragment.ARGS_CID);
         currentTag = arguments.getString(ProjectFragment.ARGS_TAG);
-        resetPage();
     }
 
     @Override
@@ -160,6 +167,6 @@ public class ProjectTabPageFragment extends BaseMvpFragment<ProjectTabPagePresen
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        refreshData();
+//        refreshData();
     }
 }

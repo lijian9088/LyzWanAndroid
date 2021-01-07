@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
@@ -70,14 +71,21 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter, FragmentP
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            currentCid = bundle.getInt(ARGS_CID, -1);
+            tag = bundle.getString(ARGS_TAG);
+            treeData = bundle.getParcelable(ARGS_TREEDATA);
+        }
+    }
+
+
+    @Override
     protected void initView() {
         tabLayout = viewBinding.tabLayout;
         viewPager = viewBinding.viewPager;
-
-        Bundle bundle = getArguments();
-        currentCid = bundle.getInt(ARGS_CID, -1);
-        tag = bundle.getString(ARGS_TAG);
-        treeData = bundle.getParcelable(ARGS_TREEDATA);
     }
 
     @Override
@@ -87,17 +95,21 @@ public class ProjectFragment extends BaseMvpFragment<ProjectPresenter, FragmentP
 
     @Override
     protected void initData(Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onEnterAnimationEnd(Bundle savedInstanceState) {
-        super.onEnterAnimationEnd(savedInstanceState);
         if (currentCid == -1) {
             presenter.getProjectTitle();
         } else {
             setTreeTitleData(treeData.children);
         }
+    }
+
+    @Override
+    public void onEnterAnimationEnd(Bundle savedInstanceState) {
+        super.onEnterAnimationEnd(savedInstanceState);
+//        if (currentCid == -1) {
+//            presenter.getProjectTitle();
+//        } else {
+//            setTreeTitleData(treeData.children);
+//        }
     }
 
     @Override

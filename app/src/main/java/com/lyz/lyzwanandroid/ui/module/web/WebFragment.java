@@ -76,6 +76,9 @@ public class WebFragment extends BaseMvpFragment<WebPresenter, ActivityWebBindin
 
     @Override
     protected void initData(Bundle savedInstanceState) {
+        Bundle arguments = getArguments();
+        String url = arguments.getString("url");
+        presenter.loadUrl(url);
     }
 
     @Override
@@ -110,8 +113,8 @@ public class WebFragment extends BaseMvpFragment<WebPresenter, ActivityWebBindin
     @Override
     public void onEnterAnimationEnd(Bundle savedInstanceState) {
         super.onEnterAnimationEnd(savedInstanceState);
-        Bundle arguments = getArguments();
-        String url = arguments.getString("url");
-        presenter.loadUrl(url);
+//        Bundle arguments = getArguments();
+//        String url = arguments.getString("url");
+//        presenter.loadUrl(url);
     }
 }

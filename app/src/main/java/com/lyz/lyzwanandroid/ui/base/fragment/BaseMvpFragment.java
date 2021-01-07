@@ -35,11 +35,18 @@ public abstract class BaseMvpFragment<T extends BasePresenter,V extends ViewBind
             presenter = createPresenter();
             presenter.attachView(this);
         }
-        initView();
+//        initView();
         if (canSwipeBack()) {
             return attachToSwipeBack(view);
         }
         return view;
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+        initView();
+        initData(savedInstanceState);
     }
 
     protected abstract V createViewBinding(LayoutInflater inflater, ViewGroup container);
@@ -50,12 +57,6 @@ public abstract class BaseMvpFragment<T extends BasePresenter,V extends ViewBind
 
     protected boolean canSwipeBack() {
         return false;
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initData(savedInstanceState);
     }
 
     protected abstract void initData(Bundle savedInstanceState);
