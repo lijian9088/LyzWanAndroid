@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
-    android:opacity="opaque">
-    <!--android:opacity="opaque" 不透明的-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:drawable="@color/primary" />
+    <!-- 整体的背景颜色 -->
     <item>
-        <!--图片-->
+<!--        <color android:color="@color/white" />-->
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+
+    <!--单独的slogan图片 并且设置下间距-->
+    <item android:bottom="24dp">
+        <!--位置设置成靠下-->
         <bitmap
-            android:gravity="center"
-            android:src="@drawable/splash" />
+            android:gravity="bottom"
+            android:src="@drawable/splash_logo" />
     </item>
 
 </layer-list>
