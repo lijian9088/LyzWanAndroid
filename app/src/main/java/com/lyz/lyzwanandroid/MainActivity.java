@@ -29,11 +29,6 @@ public class MainActivity extends BaseMvpActivity {
         }
     }
 
-//    @Override
-//    public void setTheme(int resid) {
-//        super.setTheme(R.style.NormalTheme);
-//    }
-
     @Override
     protected void initData() {
         String apiHost = BuildConfig.BASE_URL;

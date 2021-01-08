@@ -14,7 +14,7 @@
         <!--位置设置成靠下-->
         <bitmap
             android:gravity="bottom"
-            android:src="@drawable/splash_logo" />
+            android:src="@drawable/logo_lyz" />
     </item>
 
 </layer-list>

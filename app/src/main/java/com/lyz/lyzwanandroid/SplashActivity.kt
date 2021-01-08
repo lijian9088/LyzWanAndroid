@@ -32,9 +32,10 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onBackPressed() {
-        schedule?.remove(task)
-        super.onBackPressed()
+    override fun onDestroy() {
+        schedule?.shutdownNow()
+        schedule = null
+        super.onDestroy()
     }
 
 }
