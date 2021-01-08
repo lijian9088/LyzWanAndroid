@@ -12,5 +12,6 @@
     <string name="btn">按钮</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
-    <string name="setting">设置</string>
+    <string name="cache">缓存</string>
+    <string name="skin">换肤</string>
 </resources>

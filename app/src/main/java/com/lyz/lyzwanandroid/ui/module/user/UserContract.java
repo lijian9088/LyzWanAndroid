@@ -17,6 +17,8 @@ public interface UserContract {
     interface Presenter extends IPresenter<UserContract.View> {
         void login(String username, String password);
 
-        void register();
+        void cleanCache();
+
+        void changeSkin();
     }
 }

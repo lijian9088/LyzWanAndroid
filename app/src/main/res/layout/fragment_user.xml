@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,9 +16,12 @@
             layout="@layout/include_btn" />
 
         <include
-            android:id="@+id/btnSetting"
+            android:id="@+id/btnCache"
             layout="@layout/include_btn" />
 
+        <include
+            android:id="@+id/btnSkin"
+            layout="@layout/include_btn" />
 
     </LinearLayout>
 </ScrollView>

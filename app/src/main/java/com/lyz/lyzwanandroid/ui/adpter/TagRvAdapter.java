@@ -67,6 +67,7 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 
                 WanAndroidData wanAndroidData = navigation.articles.get(position);
                 String link = wanAndroidData.link;
+                link = convertHttpToHttps(link);
 
                 MainActivity act = (MainActivity) holder.flowLayout.getContext();
                 act.startChildFragment(WebFragment.newInstance(link));
@@ -89,6 +90,15 @@ public class TagRvAdapter extends BaseRecyclerViewAdapter<Navigation, TagRvAdapt
 //            flexboxLayout.addView(textView);
 //        }
 
+    }
+
+    private String convertHttpToHttps(String link) {
+        String http = "http://";
+        String https = "https://";
+        if(link.contains(http)){
+            link = link.replace(http, https);
+        }
+        return link;
     }
 
     public static class TagHolder extends BaseViewHolder {

@@ -136,4 +136,15 @@ public class NetworkManager {
                 .subscribeOn(Schedulers.io());
     }
 
+    /**
+     * 登录
+     *
+     * @return
+     */
+    public Observable<BaseResponse<String>> login(String userName, String password) {
+        return service.requestLogin(userName, password)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
+    }
+
 }

@@ -11,7 +11,10 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -42,4 +45,8 @@ public interface WanAndroidService {
 
     @GET("tree/json")
     Observable<BaseResponse<List<TreeData>>> requestTree();
+
+    @FormUrlEncoded
+    @POST("user/login")
+    Observable<BaseResponse<String>> requestLogin(@Field("username") String userName, @Field("password") String password);
 }
