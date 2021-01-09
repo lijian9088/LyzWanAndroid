@@ -4,6 +4,7 @@ import com.lyz.lyzwanandroid.BuildConfig;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
+import com.lyz.lyzwanandroid.data.model.LoginData;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.TreeData;
 import com.lyz.lyzwanandroid.data.source.remote.WanAndroidService;
@@ -141,7 +142,7 @@ public class NetworkManager {
      *
      * @return
      */
-    public Observable<BaseResponse<String>> login(String userName, String password) {
+    public Observable<BaseResponse<LoginData>> login(String userName, String password) {
         return service.requestLogin(userName, password)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io());

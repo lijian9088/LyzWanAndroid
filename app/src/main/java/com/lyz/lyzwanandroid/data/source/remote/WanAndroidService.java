@@ -3,6 +3,7 @@ package com.lyz.lyzwanandroid.data.source.remote;
 import com.lyz.lyzwanandroid.data.model.ArticleList;
 import com.lyz.lyzwanandroid.data.model.Banner;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
+import com.lyz.lyzwanandroid.data.model.LoginData;
 import com.lyz.lyzwanandroid.data.model.Navigation;
 import com.lyz.lyzwanandroid.data.model.ProjectTitle;
 import com.lyz.lyzwanandroid.data.model.TreeData;
@@ -48,5 +49,5 @@ public interface WanAndroidService {
 
     @FormUrlEncoded
     @POST("user/login")
-    Observable<BaseResponse<String>> requestLogin(@Field("username") String userName, @Field("password") String password);
+    Observable<BaseResponse<LoginData>> requestLogin(@Field("username") String userName, @Field("password") String password);
 }

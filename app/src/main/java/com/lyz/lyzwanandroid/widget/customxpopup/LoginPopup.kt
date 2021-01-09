@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatEditText
+import com.blankj.utilcode.util.ScreenUtils
 import com.lxj.xpopup.core.CenterPopupView
 import com.lxj.xpopup.interfaces.OnCancelListener
 import com.lxj.xpopup.interfaces.OnInputConfirmListener
@@ -15,10 +16,10 @@ import com.lyz.lyzwanandroid.R
  * @Describe
  */
 
-class LoginPopup(context: Context) : CenterPopupView(context) {
+class LoginPopup(context: Context) : CenterPopupView(context), View.OnClickListener {
 
-    private lateinit var etUsername: AppCompatEditText
-    private lateinit var etPassword: AppCompatEditText
+    lateinit var etUsername: AppCompatEditText
+    lateinit var etPassword: AppCompatEditText
     private lateinit var tv_confirm: TextView
     private lateinit var tv_cancel: TextView
 
@@ -36,24 +37,30 @@ class LoginPopup(context: Context) : CenterPopupView(context) {
         etPassword = findViewById(R.id.etPassword)
         tv_confirm = findViewById(R.id.tv_confirm)
         tv_cancel = findViewById(R.id.tv_cancel)
+
+        tv_confirm.setOnClickListener(this)
+        tv_cancel.setOnClickListener(this)
     }
 
-    var cancelListener: OnCancelListener? = null
-    var inputConfirmListener: OnConfirmListener? = null
-    fun setListener(inputConfirmListener: OnInputConfirmListener?, cancelListener: OnCancelListener?) {
-        this.cancelListener = cancelListener
-        this.inputConfirmListener = inputConfirmListener
+    interface OnClickListener{
+        fun onCancel()
+        fun onConfirm()
     }
 
-    fun onClick(v: View) {
+    var onClickListener : OnClickListener? = null
+    fun setListener(onClickListener: OnClickListener) {
+        this.onClickListener = onClickListener
+    }
+
+    override fun onClick(v: View) {
         if (v === tv_cancel) {
-            if (cancelListener != null) {
-                cancelListener!!.onCancel()
+            if (onClickListener != null) {
+                onClickListener!!.onCancel()
             }
             dismiss()
         } else if (v === tv_confirm) {
-            if (inputConfirmListener != null) {
-                inputConfirmListener!!.onConfirm(et_input.getText().toString().trim({ it <= ' ' }))
+            if (onClickListener != null) {
+                onClickListener!!.onConfirm()
             }
             if (popupInfo.autoDismiss) {
                 dismiss()
@@ -61,4 +68,7 @@ class LoginPopup(context: Context) : CenterPopupView(context) {
         }
     }
 
+    override fun getPopupWidth(): Int {
+        return (ScreenUtils.getScreenWidth() * 0.7f).toInt()
+    }
 }

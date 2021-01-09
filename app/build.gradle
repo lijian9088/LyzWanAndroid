@@ -107,7 +107,7 @@ dependencies {
     //将latestVersion替换成上面 jitpack 后面的版本号
     implementation 'com.orhanobut:logger:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
-    implementation 'com.blankj:utilcode:1.23.4'
+    implementation 'com.blankj:utilcodex:1.30.5'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'

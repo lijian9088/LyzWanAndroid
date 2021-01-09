@@ -1,5 +1,6 @@
 package com.lyz.lyzwanandroid.ui.module.user;
 
+import com.lyz.lyzwanandroid.data.model.LoginData;
 import com.lyz.lyzwanandroid.ui.base.mvp.IPresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 
@@ -11,7 +12,9 @@ import com.lyz.lyzwanandroid.ui.base.mvp.IView;
 public interface UserContract {
 
     interface View extends IView {
+        void showLoginDialog();
 
+        void loginComplete(boolean success, Object data);
     }
 
     interface Presenter extends IPresenter<UserContract.View> {

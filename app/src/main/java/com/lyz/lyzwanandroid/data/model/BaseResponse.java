@@ -11,4 +11,12 @@ public class BaseResponse<T> {
     public int errorCode;
     public String errorMsg;
 
+    @Override
+    public String toString() {
+        return "BaseResponse{" +
+                "data=" + data +
+                ", errorCode=" + errorCode +
+                ", errorMsg='" + errorMsg + '\'' +
+                '}';
+    }
 }
