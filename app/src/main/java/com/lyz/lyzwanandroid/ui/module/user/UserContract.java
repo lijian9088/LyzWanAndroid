@@ -1,5 +1,7 @@
 package com.lyz.lyzwanandroid.ui.module.user;
 
+import android.content.Context;
+
 import com.lyz.lyzwanandroid.data.model.LoginData;
 import com.lyz.lyzwanandroid.ui.base.mvp.IPresenter;
 import com.lyz.lyzwanandroid.ui.base.mvp.IView;
@@ -20,7 +22,7 @@ public interface UserContract {
     interface Presenter extends IPresenter<UserContract.View> {
         void login(String username, String password);
 
-        void cleanCache();
+        void cleanCache(Context context);
 
         void changeSkin();
     }

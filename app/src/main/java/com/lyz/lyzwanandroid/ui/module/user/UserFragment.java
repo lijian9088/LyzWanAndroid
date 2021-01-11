@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 
 import androidx.appcompat.widget.AppCompatEditText;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.core.BasePopupView;
+import com.lxj.xpopup.interfaces.OnConfirmListener;
 import com.lyz.lyzwanandroid.R;
 import com.lyz.lyzwanandroid.data.model.LoginData;
 import com.lyz.lyzwanandroid.databinding.FragmentUserBinding;
 import com.lyz.lyzwanandroid.databinding.IncludeBtnBinding;
 import com.lyz.lyzwanandroid.ui.base.fragment.BaseMvpFragment;
+import com.lyz.lyzwanandroid.utils.CleanDataUtils;
 import com.lyz.lyzwanandroid.widget.customxpopup.LoginPopup;
 import com.orhanobut.logger.Logger;
 
@@ -32,6 +35,8 @@ public class UserFragment extends BaseMvpFragment<UserPresenter, FragmentUserBin
     private IncludeBtnBinding btnSkin;
     private BasePopupView loginPopupView;
     private BasePopupView loadingDialog;
+    private LoginPopup loginPopup;
+    private BasePopupView logoutPopupView;
 
     public static UserFragment newInstance() {
 
@@ -71,18 +76,32 @@ public class UserFragment extends BaseMvpFragment<UserPresenter, FragmentUserBin
 
         String skinName = SkinPreference.getInstance().getSkinName();
         Logger.d("skinName:" + skinName);
+
+        updateCacheSize();
+    }
+
+    private void updateCacheSize() {
+        String totalCacheSize = null;
+        try {
+            totalCacheSize = CleanDataUtils.getTotalCacheSize(getContext());
+            btnCache.tv.setText("缓存:" + totalCacheSize);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onClick(View v) {
         if (v.equals(btnUser.getRoot())) {
-            showLoginDialog();
-            //登录
-//            presenter.login();
+            if (btnUser.tv.getText().toString().contains("已登录")) {
+                showLogoutDialog();
+            } else {
+                showLoginDialog();
+            }
         }
 
         if (v.equals(btnCache.getRoot())) {
-            presenter.cleanCache();
+            showCleanDataDialog();
         }
 
         if (v.equals(btnSkin.getRoot())) {
@@ -90,30 +109,84 @@ public class UserFragment extends BaseMvpFragment<UserPresenter, FragmentUserBin
         }
     }
 
+    private void showCleanDataDialog() {
+        String size = null;
+        try {
+            size = CleanDataUtils.getTotalCacheSize(getContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(TextUtils.isEmpty(size)){
+            return;
+        }
+        if(size.contains("0.00")){
+            ToastUtils.showShort("无需清理");
+            return;
+        }
+        String content = String.format("是否清理缓存(%s)？",size);
+        new XPopup.Builder(getContext())
+                    //.dismissOnBackPressed(false)
+                    .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+//                    .autoOpenSoftInput(true)
+                    .isRequestFocus(false)
+                    .asConfirm("提示", content, new OnConfirmListener() {
+                        @Override
+                        public void onConfirm() {
+                            presenter.cleanCache(getContext());
+                            updateCacheSize();
+                        }
+                    }).show();
+    }
+
+    private void showLogoutDialog() {
+        if (logoutPopupView == null) {
+            logoutPopupView = new XPopup.Builder(getContext())
+                    //.dismissOnBackPressed(false)
+//                    .isDestroyOnDismiss(true) //对于只使用一次的弹窗，推荐设置这个
+//                    .autoOpenSoftInput(true)
+                    .isRequestFocus(false)
+                    .asConfirm("提示", "是否退出登录？", new OnConfirmListener() {
+                        @Override
+                        public void onConfirm() {
+                            btnUser.tv.setText(R.string.login);
+                        }
+                    });
+        }
+        logoutPopupView.show();
+    }
+
     @Override
     public void showLoginDialog() {
-        LoginPopup loginPopup = new LoginPopup(getContext());
-        loginPopup.setListener(new LoginPopup.OnClickListener() {
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onConfirm() {
-                showLoading("登录中...");
-                String username = getEditTextString(loginPopup.getEtUsername());
-                String password = getEditTextString(loginPopup.getEtPassword());
-                Logger.d("username:" + username + ",password:" + password);
-                if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
-                    presenter.login(username, password);
-                } else {
-//                    showLoading("登录失败");
-                    dismissLoading(0);
-                    showToast("用户名或者密码不能为空");
+        if (loginPopup == null) {
+            loginPopup = new LoginPopup(getContext());
+            loginPopup.setListener(new LoginPopup.OnClickListener() {
+                @Override
+                public void onCancel() {
+                    clearText();
                 }
-            }
-        });
+
+                @Override
+                public void onConfirm() {
+                    showLoading("登录中...");
+                    String username = getEditTextString(loginPopup.getEtUsername());
+                    String password = getEditTextString(loginPopup.getEtPassword());
+                    Logger.d("username:" + username + ",password:" + password);
+                    if (!TextUtils.isEmpty(username) && !TextUtils.isEmpty(password)) {
+                        presenter.login(username, password);
+                    } else {
+//                    showLoading("登录失败");
+                        dismissLoading(0);
+                        showToast("用户名或者密码不能为空");
+                    }
+                    clearText();
+                }
+
+                private void clearText() {
+                    loginPopup.getEtUsername().setText("");
+                    loginPopup.getEtPassword().setText("");
+                }
+            });
+        }
         if (loginPopupView == null) {
             loginPopupView = new XPopup.Builder(getContext())
                     //.dismissOnBackPressed(false)
@@ -126,15 +199,6 @@ public class UserFragment extends BaseMvpFragment<UserPresenter, FragmentUserBin
                     .asCustom(loginPopup);
         }
         loginPopupView.show();
-
-//        new XPopup.Builder(getContext()).asInputConfirm("我是标题", "请输入内容。",
-//                new OnInputConfirmListener() {
-//                    @Override
-//                    public void onConfirm(String text) {
-//                        ToastUtils.showShort("input text: " + text);
-//                    }
-//                })
-//                .show();
     }
 
     @Override
@@ -144,7 +208,7 @@ public class UserFragment extends BaseMvpFragment<UserPresenter, FragmentUserBin
             if (object instanceof LoginData) {
                 LoginData data = (LoginData) object;
                 String username = data.username;
-                showToast(username + "登录成功");
+                btnUser.tv.setText(String.format("已登录(%s)", username));
             }
 
             if (object instanceof String) {
@@ -176,4 +240,9 @@ public class UserFragment extends BaseMvpFragment<UserPresenter, FragmentUserBin
         }
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        updateCacheSize();
+    }
 }

@@ -1,12 +1,13 @@
 package com.lyz.lyzwanandroid.ui.module.user;
 
+import android.content.Context;
 import android.text.TextUtils;
 
-import com.blankj.utilcode.util.ToastUtils;
 import com.lyz.lyzwanandroid.data.model.BaseResponse;
 import com.lyz.lyzwanandroid.data.model.LoginData;
 import com.lyz.lyzwanandroid.data.source.NetworkManager;
 import com.lyz.lyzwanandroid.ui.base.mvp.BasePresenter;
+import com.lyz.lyzwanandroid.utils.CleanDataUtils;
 import com.orhanobut.logger.Logger;
 
 import io.reactivex.Observer;
@@ -61,8 +62,12 @@ public class UserPresenter extends BasePresenter<UserContract.View> implements U
     }
 
     @Override
-    public void cleanCache() {
-
+    public void cleanCache(Context context) {
+        try {
+            CleanDataUtils.clearAllCache(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -83,5 +88,6 @@ public class UserPresenter extends BasePresenter<UserContract.View> implements U
         if (disposable != null) {
             disposable.dispose();
         }
+        disposable = null;
     }
 }

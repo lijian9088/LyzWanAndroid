@@ -14,23 +14,23 @@
         android:ellipsize="end"
         android:gravity="center_horizontal"
         android:lines="1"
-        android:visibility="gone"
         android:textColor="@color/_xpopup_title_color"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_content"
-        android:paddingTop="15dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:paddingBottom="5dp"
-        android:textColor="@color/_xpopup_content_color"
-        android:textSize="16sp"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:text="" />
+        android:gravity="center"
+        android:paddingStart="20dp"
+        android:paddingTop="15dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="5dp"
+        android:text=""
+        android:textColor="@color/_xpopup_content_color"
+        android:textSize="16sp"
+        android:visibility="gone" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -41,10 +41,10 @@
             android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:text="用户名"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/tvPassword"
             app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
@@ -56,14 +56,16 @@
             android:text="密码"
             android:textColor="@color/black"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
             app:layout_constraintTop_toBottomOf="@id/tvUsername" />
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/etUsername"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@id/tvUsername"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
@@ -73,6 +75,9 @@
             android:id="@+id/etPassword"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintBottom_toBottomOf="@id/tvPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/guideline"
@@ -82,8 +87,8 @@
             android:id="@+id/guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.3"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
